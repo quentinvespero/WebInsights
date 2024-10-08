@@ -1,0 +1,26 @@
+{
+    "manifest_version": 3,
+    "name": "WebInsights",
+    "version": "0.1",
+    "description": "A chrome extension to get insight about the webpage we're currently on",
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": "./assets/icon.png",
+        "default_title": "WebInsights"
+    },
+    "icons": {
+        "128":"./assets/icon.png"
+    },
+    "permissions": [
+        "activeTab",
+        "scripting"
+    ],
+    "background": {
+        "service_worker": "service_worker.js",
+        "type": "module"
+    },
+    "host_permissions":[
+        "http://*/*",
+        "https://*/*"
+    ]
+}
