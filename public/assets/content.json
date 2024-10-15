@@ -1,0 +1,62 @@
+{
+    "en": {
+        "title": "Web Insights",
+        "pages":[
+            { "id": "", "text": "Summary" },
+            { "id": "translations", "text": "Translations" },
+            { "id": "settings", "text": "Settings" }
+        ],
+        "tones": {
+            "text": "Tone",
+            "tonesOptions": [
+                { "id": "1", "text": "Professional" },
+                { "id": "2", "text": "Casual" },
+                { "id": "3", "text": "Friendly" }
+            ]
+        },
+        "settings": {
+            "language": {
+                "text": "Languages",
+                "options":["en","fr"]
+            },
+            "defaultTone": {
+                "text": "Tones",
+                "options":["1","2","3"]
+            },
+            "personalPrompt": {
+                "text": "Personal Prompt",
+                "description": "This prompt will be added to the summary of the page"
+            }
+        }
+    },
+    "fr": {
+        "title": "Web Insights",
+        "pages":[
+            { "id": "", "text": "Résumé" },
+            { "id": "translations", "text": "Traductions" },
+            { "id": "settings", "text": "Paramètres" }
+        ],
+        "tones": {
+            "text": "Tons",
+            "tonesOptions": [
+                { "id": "1", "text": "Professionnel" },
+                { "id": "2", "text": "Casual" },
+                { "id": "3", "text": "Amical" }
+            ]
+        },
+        "settings": {
+            "language": {
+                "text": "Languages",
+                "options":["en","fr"]
+            },
+            "defaultTone": {
+                "text": "Tons",
+                "options":["1","2","3"]
+            },
+            "personalPrompt": {
+                "text": "Prompt personnalisé",
+                "description": "This prompt will be added to the summary of the page"
+            }
+        }
+    }
+}
