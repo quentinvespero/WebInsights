@@ -5,12 +5,15 @@ import MenuBar from "./components/menuBar/MenuBar"
 import { colorsVariables } from "./style/variables"
 import SummaryComponent from "./components/SummaryComponent"
 import { ErrorBoundary } from "react-error-boundary"
+import { Navigate, Route, Routes } from "react-router-dom"
 
 const App = () => {
 
     const [language, setLanguage] = useState<'fr' | 'en'>("en")
 
     const appContent = content[language]
+
+    // const location = useLocation()
 
     const style = {
         container: {
@@ -26,17 +29,21 @@ const App = () => {
     return (
         <div style={style.container}>
 
-            {appContent.pages.map((page) => (
-                <PageComponent key={page.id} appContent={appContent} page={page} />
-            ))}
+            <Routes>
 
-            {/* <ErrorBoundary fallback={<p>error</p>}>
-                <Suspense fallback={<p>loading</p>}>
-                    <SummaryComponent appContent={appContent}/>
-                </Suspense>
-            </ErrorBoundary> */}
+                {appContent.pages.map((page) => (
+                    <Route 
+                        key={page.id} 
+                        path={page.id} 
+                        element={<PageComponent appContent={appContent} page={page} />}>
+                    </Route>
+                ))}
 
-            {/* <MenuBar appContent={appContent} /> */}
+                <Route path="*" element={<Navigate to="/" replace />}/>
+
+            </Routes>
+
+            <MenuBar appContent={appContent} />
         </div>
     )
 }
