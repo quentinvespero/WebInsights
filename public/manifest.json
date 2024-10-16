@@ -9,6 +9,7 @@
         "default_title": "WebInsights"
     },
     "icons": {
+        "32":"./assets/icons/icon.png",
         "128":"./assets/icons/icon.png"
     },
     "permissions": [
@@ -17,8 +18,7 @@
         "storage",
         "contextMenus"
     ],
-    "host_permissions":[
-        "http://*/*",
-        "https://*/*"
-    ]
+    "background":{
+        "service_worker" : "background.js"
+    }
 }

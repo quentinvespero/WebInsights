@@ -25,11 +25,12 @@ export interface PageInterface {
     text:string
 }
 export interface ToneOptionInterface {
-    id:string
+    id:number
     text:string
+    prompt:string
 }
 export interface SettingItemInterface {
     text:string
     options?:string[]
-    description?:string
+    prompt?:string
 }

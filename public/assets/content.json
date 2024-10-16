@@ -9,9 +9,26 @@
         "tones": {
             "text": "Tone",
             "tonesOptions": [
-                { "id": "1", "text": "Professional" },
-                { "id": "2", "text": "Casual" },
-                { "id": "3", "text": "Friendly" }
+                { 
+                    "id": 0, 
+                    "text": "Professional", 
+                    "prompt":"Here is a webpage for you to summarise in 3 points, using a few words" 
+                },
+                { 
+                    "id": 1, 
+                    "text": "Casual", 
+                    "prompt":"Here is a webpage for you to summarise in 3 points, using a few words" 
+                },
+                { 
+                    "id": 2, 
+                    "text": "Friendly", 
+                    "prompt":"Here is a webpage for you to summarise in 3 points, using a few words"
+                },
+                { 
+                    "id": 3, 
+                    "text": "test", 
+                    "prompt":"Here is a webpage for you to summarise in 3 points, using a few words"
+                }
             ]
         },
         "settings": {
@@ -25,7 +42,7 @@
             },
             "personalPrompt": {
                 "text": "Personal Prompt",
-                "description": "This prompt will be added to the summary of the page"
+                "prompt": "Here is a webpage for you to summarise in 3 points, using a few words"
             }
         }
     },
@@ -39,9 +56,21 @@
         "tones": {
             "text": "Tons",
             "tonesOptions": [
-                { "id": "1", "text": "Professionnel" },
-                { "id": "2", "text": "Casual" },
-                { "id": "3", "text": "Amical" }
+                { 
+                    "id": 1, 
+                    "text": "Professionnel", 
+                    "prompt":"Here is a webpage for you to summarise in 3 points, using a few words" 
+                },
+                { 
+                    "id": 2, 
+                    "text": "Casual", 
+                    "prompt":"Here is a webpage for you to summarise in 3 points, using a few words" 
+                },
+                { 
+                    "id": 3, 
+                    "text": "Amical", 
+                    "prompt":"Here is a webpage for you to summarise in 3 points, using a few words"
+                 }
             ]
         },
         "settings": {
@@ -55,7 +84,7 @@
             },
             "personalPrompt": {
                 "text": "Prompt personnalisé",
-                "description": "This prompt will be added to the summary of the page"
+                "prompt": "Here is a webpage for you to summarise in 3 points, using a few words"
             }
         }
     }
