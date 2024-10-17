@@ -2,9 +2,9 @@
     "en": {
         "title": "Web Insights",
         "pages":[
-            { "id": "", "text": "Summary" },
-            { "id": "translations", "text": "Translations" },
-            { "id": "settings", "text": "Settings" }
+            { "id": "", "text": "Summary","icon":"summary.svg" },
+            { "id": "translations", "text": "Translations","icon":"summary.svg" },
+            { "id": "settings", "text": "Settings","icon":"summary.svg" }
         ],
         "tones": {
             "text": "Tone",
@@ -49,9 +49,9 @@
     "fr": {
         "title": "Web Insights",
         "pages":[
-            { "id": "", "text": "Résumé" },
-            { "id": "translations", "text": "Traductions" },
-            { "id": "settings", "text": "Paramètres" }
+            { "id": "", "text": "Résumé","icon":"summary.svg" },
+            { "id": "translations", "text": "Traductions","icon":"summary.svg" },
+            { "id": "settings", "text": "Paramètres","icon":"summary.svg" }
         ],
         "tones": {
             "text": "Tons",

@@ -27,7 +27,7 @@ const App = () => {
     }
 
     return (
-        <div style={style.container}>
+        <div style={style.container} className="app">
 
             <Routes>
 

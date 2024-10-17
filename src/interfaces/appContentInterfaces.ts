@@ -23,6 +23,7 @@ export interface AppContentLanguageInterface {
 export interface PageInterface {
     id:string
     text:string
+    icon:string
 }
 export interface ToneOptionInterface {
     id:number
