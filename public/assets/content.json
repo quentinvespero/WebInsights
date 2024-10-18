@@ -12,22 +12,22 @@
                 { 
                     "id": 0, 
                     "text": "Professional", 
-                    "prompt":"Here is a webpage for you to summarise in 3 points, using a few words" 
+                    "prompt":"Professional - Here is a webpage for you to summarise in 3 points, using a few words" 
                 },
                 { 
                     "id": 1, 
                     "text": "Casual", 
-                    "prompt":"Here is a webpage for you to summarise in 3 points, using a few words" 
+                    "prompt":"casual - Here is a webpage for you to summarise in 3 points, using a few words" 
                 },
                 { 
                     "id": 2, 
                     "text": "Friendly", 
-                    "prompt":"Here is a webpage for you to summarise in 3 points, using a few words"
+                    "prompt":"friendly - Here is a webpage for you to summarise in 3 points, using a few words"
                 },
                 { 
                     "id": 3, 
                     "text": "test", 
-                    "prompt":"Here is a webpage for you to summarise in 3 points, using a few words"
+                    "prompt":"test - Here is a webpage for you to summarise in 3 points, using a few words"
                 }
             ]
         },

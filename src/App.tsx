@@ -6,6 +6,7 @@ import { colorsVariables } from "./style/variables"
 import SummaryComponent from "./components/SummaryComponent"
 import { ErrorBoundary } from "react-error-boundary"
 import { Navigate, Route, Routes } from "react-router-dom"
+import styled from "styled-components"
 
 const App = () => {
 
@@ -13,21 +14,18 @@ const App = () => {
 
     const appContent = content[language]
 
-    // const location = useLocation()
-
-    const style = {
-        container: {
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: 'column' as React.CSSProperties['flexDirection'],
-            alignItems: "center",
-            backgroundColor: colorsVariables['color1'],
-            color: colorsVariables['color2']
-        }
-    }
+    const Style = styled.div`
+        /* width:80%; */
+        display:flex;
+        justify-content:center;
+        flex-direction:column;
+        align-items:center;
+        background:${colorsVariables.color1};
+        color:${colorsVariables.color2};
+    `
 
     return (
-        <div style={style.container} className="app">
+        <Style className="app">
 
             <Routes>
 
@@ -44,7 +42,7 @@ const App = () => {
             </Routes>
 
             <MenuBar appContent={appContent} />
-        </div>
+        </Style>
     )
 }
 

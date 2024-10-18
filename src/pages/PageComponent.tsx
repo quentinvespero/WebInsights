@@ -2,6 +2,7 @@ import { FC } from "react"
 import { PageInterface } from "../interfaces/appContentInterfaces"
 import SummaryPage from "./SummaryPage"
 import { AppContentProps } from "../interfaces/globalProps"
+import styled from "styled-components"
 
 interface PageComponentProps {
     page: PageInterface
@@ -9,10 +10,12 @@ interface PageComponentProps {
 
 const PageComponent:FC<PageComponentProps & AppContentProps> = ({ appContent, page }) => {
 
-    const style = {}
+    const Style = styled.div`
+        width:80%
+    `
 
     return (
-        <div style={style} className='pageComponent'>
+        <Style className='pageComponent'>
 
             <h1>{page.text}</h1>
 
@@ -21,7 +24,7 @@ const PageComponent:FC<PageComponentProps & AppContentProps> = ({ appContent, pa
             {/* {page.id === 'translations'}
             {page.id === 'settings'} */}
             
-        </div>
+        </Style>
     )
 }
 

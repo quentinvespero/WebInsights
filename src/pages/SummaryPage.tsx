@@ -3,9 +3,10 @@ import SummaryComponent from "../components/SummaryComponent"
 import { AppContentProps } from "../interfaces/globalProps"
 import { ToneOptionInterface } from "../interfaces/appContentInterfaces"
 import { ErrorBoundary } from "react-error-boundary"
-import { styled } from "styled-components"
+import Styled, { styled } from "styled-components"
 import { colorsVariables } from "../style/variables"
 import ButtonWithIcon from "../components/ButtonWithIcon"
+import { StyledButton } from "../style/styledComponents"
 
 interface SummaryPageProps {
     
@@ -27,20 +28,20 @@ const SummaryPage:FC<SummaryPageProps & AppContentProps> = (appContent) => {
         
         .tonesSelector{
             display:flex;
-            flex-direction:column;
-            row-gap:.5rem;
+            gap:1rem;
             flex-wrap:wrap;
             
             & .tone{
                 display:flex;
                 flex-direction:row;
                 column-gap:1rem;
-                padding:.5rem;
+                padding:.3rem 1.3rem;
                 border-radius:.5rem;
                 background:${colorsVariables.color3_dark};
-                border:solid .15rem ${colorsVariables.color2};
                 align-items:center;
                 justify-content:center;
+                /* cursor:pointer; */
+                border:solid .1rem ${colorsVariables.color3_dark};
                 
                 & .buttonWithIcon{
                     span{
@@ -62,9 +63,11 @@ const SummaryPage:FC<SummaryPageProps & AppContentProps> = (appContent) => {
             
             <div className="tonesSelector">
                 {appContent.appContent.tones.tonesOptions.map((tone) => (
-                    <div key={tone.id} className="tone" onClick={() => definingPrompt(tone.id)}>
+
+                    <StyledButton key={tone.id} className="tone" onClick={() => definingPrompt(tone.id)}>
                         <ButtonWithIcon text={tone.text} description={tone.prompt}/>
-                    </div>
+                    </StyledButton>
+                    
                 ))}
             </div>
         </Style>
