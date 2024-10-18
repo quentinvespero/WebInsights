@@ -12,28 +12,7 @@ interface MenuBarProps {
 
 const MenuBar:FC<MenuBarProps & AppContentProps> = (appContent) => {
 
-    const style = {
-        parent: {
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            columnGap:'1rem',
-            padding:'1rem'
-        },
-        child: {
-            display:'flex',
-            flexDirection:'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '.5rem',
-            borderRadius: '.5rem',
-            background: colorsVariables.color3_dark,
-            rowGap:'.5rem'
-        }
-    } as const // using as const here enable to treat parent and child object in there as a proper const.
-
-    const Container = styled.div`
+    const Style = styled.div`
         display:flex;
         flex-direction:row;
         justify-content:center;
@@ -63,22 +42,21 @@ const MenuBar:FC<MenuBarProps & AppContentProps> = (appContent) => {
             border-radius: 0.5rem;
             background: var(--color3_dark);
             row-gap: 0.5rem;
-
         }
     `
 
     return (
-        <Container className="menuBar">
+        <Style className="menuBar">
 
             {/* mapping pages elements */}
             {appContent.appContent.pages.map(pageItem => (
                 <Link to={pageItem.id} key={pageItem.id}>
                     {/* <MenuBarItem id={pageItem.id} text={pageItem.text}/> */}
-                    <ButtonWithIcon text={pageItem.text} imageName={pageItem.icon}  iconSize="2rem" />
+                    <ButtonWithIcon text={pageItem.text} imageName={pageItem.icon} iconSize="2rem" />
                 </Link>
             ))}
 
-        </Container>
+        </Style>
     )
 }
 

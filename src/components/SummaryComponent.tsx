@@ -60,7 +60,6 @@ const SummaryComponent:FC<SummaryComponentProps> = ({prompt}) => {
     return (
         <div>
             <p>{summary}</p>
-            test
         </div>
     )
 }
