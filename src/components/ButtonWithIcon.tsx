@@ -53,7 +53,7 @@ const ButtonWithIcon:FC<ButtonWithImageProps> = ({imageName, text, description, 
             width: iconSize ? iconSize : '1rem'
         },
         text:{
-
+            
         }
     }
     
