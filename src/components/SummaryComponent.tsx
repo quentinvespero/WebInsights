@@ -36,28 +36,28 @@ const SummaryComponent:FC<SummaryComponentProps> = ({prompt}) => {
 
     const [summary, setSummary] = useState<string>('')
 
-    // useEffect(() => {
-    //     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    //         if (request.action === 'startSummary') {
-    //             chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    useEffect(() => {
+        chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+            if (request.action === 'startSummary') {
+                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                     
-    //                 // Run extractText in the tab's context to get the page's text
-    //                 chrome.scripting.executeScript(
-    //                     {
-    //                         target: { tabId: tabs[0].id! },
-    //                         func: extractText
-    //                     },
-    //                     async (results) => {
-    //                         const extractedText = results[0].result as string
-    //                         const textToSendToAPI = `${prompt} ${extractedText}` // Add textToSendToAPI to the text
-    //                         const apiDataResponse = await fetchSummary(textToSendToAPI)  // Fetch the summary from the API
-    //                         setSummary(apiDataResponse.summary)  // Set the summary in state
-    //                     }
-    //                 )
-    //             })
-    //         }
-    //     })
-    // }, [])
+                    // Run extractText in the tab's context to get the page's text
+                    chrome.scripting.executeScript(
+                        {
+                            target: { tabId: tabs[0].id! },
+                            func: extractText
+                        },
+                        async (results) => {
+                            const extractedText = results[0].result as string
+                            const textToSendToAPI = `${prompt} ${extractedText}` // Add textToSendToAPI to the text
+                            const apiDataResponse = await fetchSummary(textToSendToAPI)  // Fetch the summary from the API
+                            setSummary(apiDataResponse.summary)  // Set the summary in state
+                        }
+                    )
+                })
+            }
+        })
+    }, [])
 
     const Style = styled.div`
         display:flex;
