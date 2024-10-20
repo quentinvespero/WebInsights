@@ -5,12 +5,12 @@
     "description": "A chrome extension to get insights about webpages",
     "action": {
         "default_popup": "index.html",
-        "default_icon": "./assets/icons/icon.png",
+        "default_icon": "./assets/icons/icon.svg",
         "default_title": "WebInsights"
     },
     "icons": {
-        "32":"./assets/icons/icon.png",
-        "128":"./assets/icons/icon.png"
+        "32":"./assets/icons/icon.svg",
+        "128":"./assets/icons/icon.svg"
     },
     "permissions": [
         "activeTab",
