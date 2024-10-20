@@ -2,13 +2,24 @@ import { FC, useEffect, useState } from "react"
 import { AppContentProps } from "../interfaces/globalProps"
 import styled from "styled-components"
 import { colorsVariables } from "../style/variables"
+import { ToneOptionInterface } from "../interfaces/appContentInterfaces"
 
 interface SummaryComponentProps {
-    prompt: string
+    prompt: ToneOptionInterface['prompt']
 }
 
+const Style = styled.div`
+    display:flex;
+    flex-direction:column;
+    padding:.5rem;
+    background:${colorsVariables.color4};
+    border-radius:.5rem;
+    box-shadow:0 0 .3rem ${colorsVariables.color4};
+    border:solid .1rem ${colorsVariables.color3_dark};
+`
+
 // sending the content of the webpage to the API
-const fetchSummary = async (textToSendToAPI: string): Promise<{ summary: string }> => {
+const fetchSummary = async (dataToSendToAPI: string): Promise<{ summary: string }> => {
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -17,7 +28,7 @@ const fetchSummary = async (textToSendToAPI: string): Promise<{ summary: string 
         },
         body: JSON.stringify({
             model: 'gpt-3.5-turbo',
-            messages: [{ role: 'user', content: textToSendToAPI }],
+            messages: [{ role: 'user', content: dataToSendToAPI }],
             max_tokens: 100
         })
     })
@@ -49,8 +60,8 @@ const SummaryComponent:FC<SummaryComponentProps> = ({prompt}) => {
                         },
                         async (results) => {
                             const extractedText = results[0].result as string
-                            const textToSendToAPI = `${prompt} ${extractedText}` // Add textToSendToAPI to the text
-                            const apiDataResponse = await fetchSummary(textToSendToAPI)  // Fetch the summary from the API
+                            const dataToSendToAPI = `${prompt} ${extractedText}` // Add dataToSendToAPI to the text
+                            const apiDataResponse = await fetchSummary(dataToSendToAPI)  // Fetch the summary from the API
                             setSummary(apiDataResponse.summary)  // Set the summary in state
                         }
                     )
@@ -58,16 +69,6 @@ const SummaryComponent:FC<SummaryComponentProps> = ({prompt}) => {
             }
         })
     }, [])
-
-    const Style = styled.div`
-        display:flex;
-        flex-direction:column;
-        padding:.5rem;
-        background:${colorsVariables.color4};
-        border-radius:.5rem;
-        box-shadow:0 0 .3rem ${colorsVariables.color4};
-        border:solid .1rem ${colorsVariables.color3_dark};
-    `
 
     return (
         <Style className="summaryComponent">

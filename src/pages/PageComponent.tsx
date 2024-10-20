@@ -8,11 +8,12 @@ interface PageComponentProps {
     page: PageInterface
 }
 
+const Style = styled.div`
+    width:80%;
+`
+
 const PageComponent:FC<PageComponentProps & AppContentProps> = ({ appContent, page }) => {
 
-    const Style = styled.div`
-        width:80%
-    `
 
     return (
         <Style className='pageComponent'>

@@ -12,60 +12,69 @@ interface SummaryPageProps {
     
 }
 
-const SummaryPage:FC<SummaryPageProps & AppContentProps> = (appContent) => {
-
-    const [prompt, setPrompt] = useState('')
-
-    const definingPrompt = (promptId:ToneOptionInterface['id']) => {
-        const promptText = appContent.appContent.tones.tonesOptions[promptId].prompt
-        setPrompt(promptText)
-    }
-
-    const Style = styled.div `
+const Style = styled.div `
+    display:flex;
+    flex-direction:column;
+    row-gap:1rem;
+    
+    .tonesSelector{
         display:flex;
-        flex-direction:column;
-        row-gap:1rem;
+        gap:1rem;
+        flex-wrap:wrap;
         
-        .tonesSelector{
+        & .tone{
             display:flex;
-            gap:1rem;
-            flex-wrap:wrap;
+            flex-direction:row;
+            column-gap:1rem;
+            padding:.3rem 1.3rem;
+            border-radius:.5rem;
+            background:${colorsVariables.color3_dark};
+            align-items:center;
+            justify-content:center;
+            /* cursor:pointer; */
+            border:solid .1rem ${colorsVariables.color3_dark};
             
-            & .tone{
-                display:flex;
-                flex-direction:row;
-                column-gap:1rem;
-                padding:.3rem 1.3rem;
-                border-radius:.5rem;
-                background:${colorsVariables.color3_dark};
-                align-items:center;
-                justify-content:center;
-                /* cursor:pointer; */
-                border:solid .1rem ${colorsVariables.color3_dark};
-                
-                & .buttonWithIcon{
-                    span{
-                        display:none;
-                    }
+            & .buttonWithIcon{
+                span{
+                    display:none;
                 }
             }
         }
-    `
+        & .tone-selected{
+            background:${colorsVariables.color4};
+        }
+    }
+`
+
+const SummaryPage:FC<SummaryPageProps & AppContentProps> = (appContent) => {
+    
+    const defaultPrompt = appContent.appContent.tones.tonesOptions[0]
+
+    const [tone, setTone] = useState<ToneOptionInterface>(defaultPrompt)
+
+    // const definingPrompt = (promptId:ToneOptionInterface['id']) => {
+    //     const promptText = appContent.appContent.tones.tonesOptions[promptId].prompt
+    //     setPrompt(promptText)
+    // }
+
+    // const definingTone = (tone:ToneOptionInterface) => setTone(tone)
 
     return (
         <Style className="summaryPage">
+
+            <p>tone used for the summary : <strong>{tone?.text}</strong></p>
             
             <ErrorBoundary fallback={<p>error</p>}>
                 <Suspense fallback={<p>loading</p>}>
-                    <SummaryComponent prompt={prompt}/>
+                    <SummaryComponent prompt={tone?.prompt}/>
                 </Suspense>
             </ErrorBoundary>
             
             <div className="tonesSelector">
-                {appContent.appContent.tones.tonesOptions.map((tone) => (
+                {appContent.appContent.tones.tonesOptions.map((toneItem) => (
 
-                    <StyledButton key={tone.id} className="tone" onClick={() => definingPrompt(tone.id)}>
-                        <ButtonWithIcon text={tone.text} description={tone.prompt}/>
+                    <StyledButton key={toneItem.id} className={`tone ${toneItem.id === tone?.id ? 'tone-selected' : ''}`} onClick={() => setTone(toneItem)}>
+                        <ButtonWithIcon text={toneItem.text} description={toneItem.prompt}/>
                     </StyledButton>
                     
                 ))}

@@ -27,11 +27,11 @@ const ButtonWithIcon:FC<ButtonWithImageProps> = ({imageName, text, description, 
     const descriptionText = description ? description : text
 
     // defining the classes to apply
-    const classesToApply = () => {
-        let classes = 'buttonWithIcon'
-        if (className) classes += ` buttonWithIcon-${className}`
-        return classes
-    }
+    // const classesToApply = () => {
+    //     let classes = 'buttonWithIcon'
+    //     if (className) classes += ` ${className}`
+    //     return classes
+    // }
 
     // determining which path to give to the assets depending on whether it is an icon (svg) or image (other formats)
     const pathToApply = () => {
@@ -60,7 +60,7 @@ const ButtonWithIcon:FC<ButtonWithImageProps> = ({imageName, text, description, 
     // console.log('-------ButtonWithImage',imageName,text, descriptionText)
     
     return (
-        <div className={classesToApply()} style={{...style,...styleToApply}} >
+        <div className={`buttonWithIcon ${className}`} style={{...style,...styleToApply}} >
             {imageName && <img style={styleToApply.image} src={`${pathToApply()}${imageName}`} alt={descriptionText}/>}
             {text && <p>{text}</p>}
             {description && <span>{description}</span>}

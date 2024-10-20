@@ -8,21 +8,21 @@ import { ErrorBoundary } from "react-error-boundary"
 import { Navigate, Route, Routes } from "react-router-dom"
 import styled from "styled-components"
 
+const Style = styled.div`
+    /* width:80%; */
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    align-items:center;
+    background:${colorsVariables.color1};
+    color:${colorsVariables.color2};
+`
+
 const App = () => {
 
     const [language, setLanguage] = useState<'fr' | 'en'>("en")
 
     const appContent = content[language]
-
-    const Style = styled.div`
-        /* width:80%; */
-        display:flex;
-        justify-content:center;
-        flex-direction:column;
-        align-items:center;
-        background:${colorsVariables.color1};
-        color:${colorsVariables.color2};
-    `
 
     return (
         <Style className="app">

@@ -7,8 +7,6 @@ export const StyledButton = styled.div`
     
     @media (hover:hover){
         &:hover{
-            /* transform:scale(.95); */
-            /* filter:contrast(1.5); */
             filter:opacity(.7);
         }
     }
