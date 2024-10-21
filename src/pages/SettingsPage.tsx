@@ -5,7 +5,8 @@ import { colorsVariables } from "../style/variables"
 import { ButtonType1 } from "../style/styledComponents"
 
 interface SettingsPageProps {
-    setLanguage: LanguageProps['setLanguage']
+    // setLanguage: LanguageProps['setLanguage']
+    // language:LanguageProps['language']
 }
 
 const Style = styled.div`
@@ -24,14 +25,16 @@ const Style = styled.div`
             column-gap:.8rem;
     
             & .settingItemValue{
-                background:${colorsVariables.color3_dark}
-
+                /* background:${colorsVariables.color3_dark} */
+            }
+            & .settingItemValue-selected{
+                background:${colorsVariables.color4}
             }
         }
     }
 `
 
-const SettingsPage:FC<SettingsPageProps & AppContentProps> = ({appContent, setLanguage}) => {
+const SettingsPage:FC<SettingsPageProps & AppContentProps & LanguageProps> = ({appContent, setLanguage, language}) => {
 
     const onClickActions = (settingItemId:string, settingItemValue:'fr'|'en') => {
         switch (settingItemId) {
@@ -47,6 +50,9 @@ const SettingsPage:FC<SettingsPageProps & AppContentProps> = ({appContent, setLa
                 break
             case 'personalPrompt':
                 break
+            case 'apiKey':
+                // mettre fenetre en premier plan où entrer l'api key
+                break
             default:
                 break
         }
@@ -60,7 +66,7 @@ const SettingsPage:FC<SettingsPageProps & AppContentProps> = ({appContent, setLa
                     <div className="settingItemValues">
                         {settingItem.values.map((settingItemValue, index) => (
                             <ButtonType1 
-                                className="settingItemValue" 
+                                className={`settingItemValue ${settingItemValue === language ? 'settingItemValue-selected' : ''}`}
                                 key={index} 
                                 onClick={() => onClickActions(settingItem.id, settingItemValue as 'fr' | 'en')}
                             >

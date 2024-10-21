@@ -7,7 +7,8 @@ import SettingsPage from "./SettingsPage"
 
 interface PageComponentProps {
     page: PageInterface
-    setLanguage: LanguageProps['setLanguage']
+    // setLanguage: LanguageProps['setLanguage']
+
 }
 
 const Style = styled.div`
@@ -15,7 +16,7 @@ const Style = styled.div`
     padding-bottom:6rem;
 `
 
-const PageComponent:FC<PageComponentProps & AppContentProps> = ({ appContent, page, setLanguage }) => {
+const PageComponent:FC<PageComponentProps & AppContentProps & LanguageProps> = ({ appContent, page, setLanguage, language }) => {
 
 
     return (
@@ -26,7 +27,7 @@ const PageComponent:FC<PageComponentProps & AppContentProps> = ({ appContent, pa
             {page.id === '' && <SummaryPage appContent={appContent}/>}
             
             {/* {page.id === 'translations'} */}
-            {page.id === 'settings' && <SettingsPage appContent={appContent} setLanguage={setLanguage}/>}
+            {page.id === 'settings' && <SettingsPage appContent={appContent} setLanguage={setLanguage} language={language} />}
             
         </Style>
     )

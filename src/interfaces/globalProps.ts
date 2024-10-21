@@ -7,4 +7,5 @@ export interface AppContentProps {
 
 export interface LanguageProps {
     setLanguage: Dispatch<SetStateAction<"fr" | "en">>
+    language?: 'fr'|'en'
 }

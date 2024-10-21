@@ -19,11 +19,17 @@ const Style = styled.div`
 
 // sending the content of the webpage to the API
 const fetchSummary = async (dataToSendToAPI: string): Promise<{ summary: string }> => {
+
+    // getting the api key from local storage
+    const { apiKey } = await new Promise<{ apiKey: string }>((resolve) => {
+        chrome.storage.local.get('apiKey', (result) => resolve({ apiKey: result.apiKey }))
+    })
+
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer YOUR_OPENAI_API_KEY`
+            'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
             model: 'gpt-3.5-turbo',
@@ -47,7 +53,7 @@ const SummaryComponent:FC<SummaryComponentProps> = ({prompt}) => {
     const [summary, setSummary] = useState<string>('')
 
     useEffect(() => {
-        if (typeof chrome !== 'undefined' && chrome.storage) {
+        if (typeof chrome !== 'undefined') {
             chrome.runtime.onMessage.addListener((request) => {
                 if (request.action === 'startSummary') {
                     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -70,7 +76,7 @@ const SummaryComponent:FC<SummaryComponentProps> = ({prompt}) => {
             })
         }
         else {
-            console.warn('chrome.storage is not available in the current environment')
+            console.warn('chrome is not available in the current environment')
         }
     }, [])
 

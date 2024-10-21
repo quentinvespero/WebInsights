@@ -39,7 +39,7 @@ const Style = styled.div`
         row-gap: 0.5rem;
         /* border:solid .1rem ${colorsVariables.color3_dark}; */
         /* background:${colorsVariables.color3_dark}; */
-        font-size:.8rem;
+        font-size:.75rem;
     }
     .menuBarItem-selected{
         /* border:.15rem solid ${colorsVariables.color3_dark}; */
@@ -64,7 +64,7 @@ const MenuBar:FC<MenuBarProps & AppContentProps> = (appContent) => {
                         <ButtonWithIcon 
                             text={pageItem.text} 
                             imageName={pageItem.icon} 
-                            iconSize="2rem"
+                            iconSize="1.7rem"
                             className={`menuBarItem ${'/'+pageItem.id === currentLocation.pathname ? 'menuBarItem-selected' : ''}`}
                         />
                     </StyledButtonBehaviour>

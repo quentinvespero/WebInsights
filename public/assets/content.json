@@ -27,24 +27,34 @@
                     "id": 3, 
                     "text": "test", 
                     "prompt":"test - Here is a webpage for you to summarise in 3 points, using a few words"
+                },
+                { 
+                    "id": 4, 
+                    "text": "Personal", 
+                    "prompt":"personal prompt - Here is a webpage for you to summarise in 3 points, using a few words"
                 }
             ]
         },
         "settings": [
             {
                 "id": "language",
-                "text": "Languages",
+                "text": "Languages of the extension (english, french)",
                 "values": ["en", "fr"]
             },
             {
                 "id": "defaultTone",
-                "text": "Tones",
+                "text": "Default tones",
                 "values": ["1", "2", "3"]
             },
             {
                 "id": "personalPrompt",
                 "text": "Personal Prompt",
                 "values": ["Here is a webpage for you to summarise in 3 points, using a few words"]
+            },
+            {
+                "id": "apiKey",
+                "text": "Your API key (if you want to use an other LLM than the local)",
+                "values": ["..."]
             }
         ]
     },

@@ -8,12 +8,12 @@ import styled from "styled-components"
 
 const Style = styled.div`
     display:flex;
-    justify-content:center;
     flex-direction:column;
     align-items:center;
     background:${colorsVariables.color1};
     color:${colorsVariables.color2};
     min-width:20rem;
+    min-height:30rem;
 `
 
 const App = () => {
@@ -47,7 +47,7 @@ const App = () => {
                     <Route 
                         key={page.id} 
                         path={page.id} 
-                        element={<PageComponent appContent={appContent} page={page} setLanguage={setLanguage}/>}>
+                        element={<PageComponent appContent={appContent} page={page} setLanguage={setLanguage} language={language}/>}>
                     </Route>
                 ))}
 
