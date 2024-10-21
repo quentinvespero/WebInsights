@@ -3,10 +3,10 @@ import SummaryComponent from "../components/SummaryComponent"
 import { AppContentProps } from "../interfaces/globalProps"
 import { ToneOptionInterface } from "../interfaces/appContentInterfaces"
 import { ErrorBoundary } from "react-error-boundary"
-import Styled, { styled } from "styled-components"
+import { styled } from "styled-components"
 import { colorsVariables } from "../style/variables"
 import ButtonWithIcon from "../components/ButtonWithIcon"
-import { StyledButton } from "../style/styledComponents"
+import { ButtonType1 } from "../style/styledComponents"
 
 interface SummaryPageProps {
     
@@ -24,9 +24,7 @@ const Style = styled.div `
         
         & .tone{
             display:flex;
-            flex-direction:row;
-            column-gap:1rem;
-            padding:.3rem 1.3rem;
+            padding:.2rem 1rem;
             border-radius:.5rem;
             background:${colorsVariables.color3_dark};
             align-items:center;
@@ -73,9 +71,9 @@ const SummaryPage:FC<SummaryPageProps & AppContentProps> = (appContent) => {
             <div className="tonesSelector">
                 {appContent.appContent.tones.tonesOptions.map((toneItem) => (
 
-                    <StyledButton key={toneItem.id} className={`tone ${toneItem.id === tone?.id ? 'tone-selected' : ''}`} onClick={() => setTone(toneItem)}>
+                    <ButtonType1 key={toneItem.id} className={`tone ${toneItem.id === tone?.id ? 'tone-selected' : ''}`} onClick={() => setTone(toneItem)}>
                         <ButtonWithIcon text={toneItem.text} description={toneItem.prompt}/>
-                    </StyledButton>
+                    </ButtonType1>
                     
                 ))}
             </div>

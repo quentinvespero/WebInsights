@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from "react"
-import { AppContentProps } from "../interfaces/globalProps"
 import styled from "styled-components"
 import { colorsVariables } from "../style/variables"
 import { ToneOptionInterface } from "../interfaces/appContentInterfaces"
@@ -48,31 +47,36 @@ const SummaryComponent:FC<SummaryComponentProps> = ({prompt}) => {
     const [summary, setSummary] = useState<string>('')
 
     useEffect(() => {
-        chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-            if (request.action === 'startSummary') {
-                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-                    
-                    // Run extractText in the tab's context to get the page's text
-                    chrome.scripting.executeScript(
-                        {
-                            target: { tabId: tabs[0].id! },
-                            func: extractText
-                        },
-                        async (results) => {
-                            const extractedText = results[0].result as string
-                            const dataToSendToAPI = `${prompt} ${extractedText}` // Add dataToSendToAPI to the text
-                            const apiDataResponse = await fetchSummary(dataToSendToAPI)  // Fetch the summary from the API
-                            setSummary(apiDataResponse.summary)  // Set the summary in state
-                        }
-                    )
-                })
-            }
-        })
+        if (typeof chrome !== 'undefined' && chrome.storage) {
+            chrome.runtime.onMessage.addListener((request) => {
+                if (request.action === 'startSummary') {
+                    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                        
+                        // Run extractText in the tab's context to get the page's text
+                        chrome.scripting.executeScript(
+                            {
+                                target: { tabId: tabs[0].id! },
+                                func: extractText
+                            },
+                            async (results) => {
+                                const extractedText = results[0].result as string
+                                const dataToSendToAPI = `${prompt} ${extractedText}` // Add dataToSendToAPI to the text
+                                const apiDataResponse = await fetchSummary(dataToSendToAPI)  // Fetch the summary from the API
+                                setSummary(apiDataResponse.summary)  // Set the summary in state
+                            }
+                        )
+                    })
+                }
+            })
+        }
+        else {
+            console.warn('chrome.storage is not available in the current environment')
+        }
     }, [])
 
     return (
         <Style className="summaryComponent">
-            {/* <p>{summary}</p> */}
+            <p>{summary}</p>
             test
             <ul>
                 <li>test</li>

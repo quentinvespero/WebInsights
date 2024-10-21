@@ -1,21 +1,19 @@
-import { Suspense, useState } from "react"
+import { useEffect, useState } from "react"
 import content from "../public/assets/content.json"
 import PageComponent from "./pages/PageComponent"
 import MenuBar from "./components/menuBar/MenuBar"
 import { colorsVariables } from "./style/variables"
-import SummaryComponent from "./components/SummaryComponent"
-import { ErrorBoundary } from "react-error-boundary"
 import { Navigate, Route, Routes } from "react-router-dom"
 import styled from "styled-components"
 
 const Style = styled.div`
-    /* width:80%; */
     display:flex;
     justify-content:center;
     flex-direction:column;
     align-items:center;
     background:${colorsVariables.color1};
     color:${colorsVariables.color2};
+    min-width:20rem;
 `
 
 const App = () => {
@@ -23,6 +21,22 @@ const App = () => {
     const [language, setLanguage] = useState<'fr' | 'en'>("en")
 
     const appContent = content[language]
+
+    // possibly retrieving a previously stored setting for the language
+    useEffect(() => {
+
+        // checking whether chrome object is accessible or not
+        if (typeof chrome !== 'undefined' && chrome.storage) {
+            chrome.storage.sync.get('language', (result) => {
+                if (result.language) {
+                    setLanguage(result.language)
+                }
+            })
+        }
+        else {
+            console.warn('chrome.storage is not available in the current environment')
+        }
+    }, [])
 
     return (
         <Style className="app">
@@ -33,7 +47,7 @@ const App = () => {
                     <Route 
                         key={page.id} 
                         path={page.id} 
-                        element={<PageComponent appContent={appContent} page={page} />}>
+                        element={<PageComponent appContent={appContent} page={page} setLanguage={setLanguage}/>}>
                     </Route>
                 ))}
 

@@ -1,18 +1,21 @@
 import { FC } from "react"
 import { PageInterface } from "../interfaces/appContentInterfaces"
 import SummaryPage from "./SummaryPage"
-import { AppContentProps } from "../interfaces/globalProps"
+import { AppContentProps, LanguageProps } from "../interfaces/globalProps"
 import styled from "styled-components"
+import SettingsPage from "./SettingsPage"
 
 interface PageComponentProps {
     page: PageInterface
+    setLanguage: LanguageProps['setLanguage']
 }
 
 const Style = styled.div`
-    width:80%;
+    width:85%;
+    padding-bottom:6rem;
 `
 
-const PageComponent:FC<PageComponentProps & AppContentProps> = ({ appContent, page }) => {
+const PageComponent:FC<PageComponentProps & AppContentProps> = ({ appContent, page, setLanguage }) => {
 
 
     return (
@@ -22,8 +25,8 @@ const PageComponent:FC<PageComponentProps & AppContentProps> = ({ appContent, pa
 
             {page.id === '' && <SummaryPage appContent={appContent}/>}
             
-            {/* {page.id === 'translations'}
-            {page.id === 'settings'} */}
+            {/* {page.id === 'translations'} */}
+            {page.id === 'settings' && <SettingsPage appContent={appContent} setLanguage={setLanguage}/>}
             
         </Style>
     )

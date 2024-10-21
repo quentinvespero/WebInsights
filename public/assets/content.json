@@ -3,7 +3,6 @@
         "title": "Web Insights",
         "pages":[
             { "id": "", "text": "Summary","icon":"summary.svg" },
-            { "id": "translations", "text": "Translation","icon":"summary.svg" },
             { "id": "settings", "text": "Settings","icon":"summary.svg" }
         ],
         "tones": {
@@ -31,20 +30,23 @@
                 }
             ]
         },
-        "settings": {
-            "language": {
+        "settings": [
+            {
+                "id": "language",
                 "text": "Languages",
-                "options":["en","fr"]
+                "values": ["en", "fr"]
             },
-            "defaultTone": {
+            {
+                "id": "defaultTone",
                 "text": "Tones",
-                "options":["1","2","3"]
+                "values": ["1", "2", "3"]
             },
-            "personalPrompt": {
+            {
+                "id": "personalPrompt",
                 "text": "Personal Prompt",
-                "prompt": "Here is a webpage for you to summarise in 3 points, using a few words"
+                "values": ["Here is a webpage for you to summarise in 3 points, using a few words"]
             }
-        }
+        ]
     },
     "fr": {
         "title": "Web Insights",
@@ -73,19 +75,22 @@
                  }
             ]
         },
-        "settings": {
-            "language": {
+        "settings": [
+            {
+                "id": "language",
                 "text": "Languages",
-                "options":["en","fr"]
+                "values": ["en", "fr"]
             },
-            "defaultTone": {
-                "text": "Tons",
-                "options":["1","2","3"]
+            {
+                "id": "defaultTone",
+                "text": "Tones",
+                "values": ["1", "2", "3"]
             },
-            "personalPrompt": {
-                "text": "Prompt personnalisé",
-                "prompt": "Here is a webpage for you to summarise in 3 points, using a few words"
+            {
+                "id": "personalPrompt",
+                "text": "Personal Prompt",
+                "values": ["Here is a webpage for you to summarise in 3 points, using a few words"]
             }
-        }
+        ]
     }
 }

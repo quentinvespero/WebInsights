@@ -7,11 +7,7 @@ export interface AppContentInterface {
         text: string
         tonesOptions:ToneOptionInterface[]
     }
-    settings: {
-        language: SettingItemInterface
-        defaultTone: SettingItemInterface
-        personalPrompt: SettingItemInterface
-    }
+    settings: SettingItemInterface[]
 }
 
 export interface AppContentLanguageInterface {
@@ -31,7 +27,7 @@ export interface ToneOptionInterface {
     prompt:string
 }
 export interface SettingItemInterface {
+    id:string
     text:string
-    options?:string[]
-    prompt?:string
+    values:string[]
 }

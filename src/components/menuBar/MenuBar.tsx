@@ -1,11 +1,10 @@
-import { CSSProperties, FC } from "react"
+import { FC } from "react"
 import { AppContentProps } from "../../interfaces/globalProps"
-import MenuBarItem from "./MenuBarItem"
 import { Link, useLocation } from "react-router-dom"
 import ButtonWithIcon from "../ButtonWithIcon"
 import { colorsVariables } from "../../style/variables"
 import styled from "styled-components"
-import { StyledButton } from "../../style/styledComponents"
+import { StyledButtonBehaviour } from "../../style/styledComponents"
 
 interface MenuBarProps {
 
@@ -17,21 +16,34 @@ const Style = styled.div`
     justify-content:center;
     align-items:center;
     column-gap:2rem;
-    padding:1rem;
-    width:100%;
-
+    padding:.5rem 0rem;
+    margin-bottom:.3rem;
+    background:${colorsVariables.color_transparent};
+    border:.15rem solid ${colorsVariables.color3_dark};
+    backdrop-filter:blur(3rem);
+    width:93%;
+    border-radius:1rem;
+    position:fixed;
+    bottom:0;
+    z-index:1;
+    overflow-x:scroll;
+    box-shadow:0 0 3rem 0 ${colorsVariables.color4};
+    
     .menuBarItem{
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 0.5rem;
+        padding: 0.2rem 0.7rem;
         border-radius: 0.5rem;
         row-gap: 0.5rem;
-        border:solid .1rem ${colorsVariables.color3_dark};
-        background:${colorsVariables.color3_dark};
+        /* border:solid .1rem ${colorsVariables.color3_dark}; */
+        /* background:${colorsVariables.color3_dark}; */
+        font-size:.8rem;
     }
     .menuBarItem-selected{
+        /* border:.15rem solid ${colorsVariables.color3_dark}; */
+        box-shadow:0rem 0rem 0rem .1rem ${colorsVariables.color3_dark};
         background:${colorsVariables.color4};
     }
 `
@@ -48,14 +60,14 @@ const MenuBar:FC<MenuBarProps & AppContentProps> = (appContent) => {
             {/* mapping pages elements */}
             {appContent.appContent.pages.map(pageItem => (
                 <Link to={pageItem.id} key={pageItem.id}>
-                    <StyledButton>
+                    <StyledButtonBehaviour>
                         <ButtonWithIcon 
                             text={pageItem.text} 
                             imageName={pageItem.icon} 
                             iconSize="2rem"
                             className={`menuBarItem ${'/'+pageItem.id === currentLocation.pathname ? 'menuBarItem-selected' : ''}`}
                         />
-                    </StyledButton>
+                    </StyledButtonBehaviour>
                 </Link>
             ))}
 
