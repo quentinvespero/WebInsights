@@ -5,6 +5,7 @@ import MenuBar from "./components/menuBar/MenuBar"
 import { colorsVariables } from "./style/variables"
 import { Navigate, Route, Routes } from "react-router-dom"
 import styled from "styled-components"
+import { LanguageProps, PromptsProps } from "./interfaces/globalProps"
 
 const Style = styled.div`
     display:flex;
@@ -18,11 +19,15 @@ const Style = styled.div`
 
 const App = () => {
 
-    const [language, setLanguage] = useState<'fr' | 'en'>("en")
+    const [language, setLanguage] = useState<LanguageProps['language']>("en")
 
-    const appContent = content[language]
+    // app content, depending on the value of language (if it's set to french or english)
+    const appContent = content[language as keyof typeof content]
 
-    // possibly retrieving a previously stored setting for the language
+    // set the prompt to use, based on its ID
+    const [promptId, setPromptId] = useState<PromptsProps['promptId']>(0)
+
+    // retrieving a possibly stored setting for the language
     useEffect(() => {
 
         // checking whether chrome object is accessible or not
@@ -32,10 +37,13 @@ const App = () => {
                     setLanguage(result.language)
                 }
             })
+            chrome.storage.sync.get('prompt', (result) => {
+                if (result.prompt) {
+                    setPromptId(result.prompt)
+                }
+            })
         }
-        else {
-            console.warn('chrome.storage is not available in the current environment')
-        }
+        else console.warn('chrome.storage is not available in the current environment')
     }, [])
 
     return (
@@ -47,11 +55,20 @@ const App = () => {
                     <Route 
                         key={page.id} 
                         path={page.id} 
-                        element={<PageComponent appContent={appContent} page={page} setLanguage={setLanguage} language={language}/>}>
+                        element={<PageComponent 
+                            appContent={appContent} 
+                            page={page} 
+                            setLanguage={setLanguage} 
+                            language={language}
+                            promptId={promptId}
+                            setPromptId={setPromptId}
+                            />
+                        }
+                    >
                     </Route>
                 ))}
 
-                <Route path="*" element={<Navigate to="/" replace />}/>
+                <Route path="*" element={<Navigate to="/summary" replace />}/>
 
             </Routes>
 

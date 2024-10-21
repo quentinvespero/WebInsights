@@ -6,6 +6,11 @@ export interface AppContentProps {
 }
 
 export interface LanguageProps {
-    setLanguage: Dispatch<SetStateAction<"fr" | "en">>
-    language?: 'fr'|'en'
+    language: string
+    setLanguage: Dispatch<SetStateAction<string>>
+}
+
+export interface PromptsProps {
+    promptId:number
+    setPromptId:Dispatch<SetStateAction<PromptsProps['promptId']>>
 }

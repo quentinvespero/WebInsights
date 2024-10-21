@@ -2,7 +2,7 @@
     "en": {
         "title": "Web Insights",
         "pages":[
-            { "id": "", "text": "Summary","icon":"summary.svg" },
+            { "id": "summary", "text": "Summary","icon":"summary.svg" },
             { "id": "settings", "text": "Settings","icon":"summary.svg" }
         ],
         "tones": {
@@ -35,6 +35,31 @@
                 }
             ]
         },
+        "prompts":{
+            "text":"Suggested tones (prompts)",
+            "promptsSuggestions":[
+                { 
+                    "id": 0, 
+                    "text": "Professional", 
+                    "prompt":"Professional - Here is a webpage for you to summarise in 3 points, using a few words" 
+                },
+                { 
+                    "id": 1, 
+                    "text": "Casual", 
+                    "prompt":"casual - Here is a webpage for you to summarise in 3 points, using a few words" 
+                },
+                { 
+                    "id": 2, 
+                    "text": "Friendly", 
+                    "prompt":"friendly - Here is a webpage for you to summarise in 3 points, using a few words"
+                },
+                { 
+                    "id": 3, 
+                    "text": "Personal", 
+                    "prompt":"personal prompt - Here is a webpage for you to summarise in 3 points, using a few words"
+                }
+            ]
+        },
         "settings": [
             {
                 "id": "language",
@@ -44,7 +69,7 @@
             {
                 "id": "defaultTone",
                 "text": "Default tones",
-                "values": ["1", "2", "3"]
+                "values": [0,1,2,3]
             },
             {
                 "id": "personalPrompt",
@@ -83,6 +108,31 @@
                     "text": "Amical", 
                     "prompt":"Here is a webpage for you to summarise in 3 points, using a few words"
                  }
+            ]
+        },
+        "prompts":{
+            "text":"Suggested tones (prompts)",
+            "promptsSuggestions":[
+                { 
+                    "id": 0, 
+                    "text": "Professional", 
+                    "prompt":"Professional - Here is a webpage for you to summarise in 3 points, using a few words" 
+                },
+                { 
+                    "id": 1, 
+                    "text": "Casual", 
+                    "prompt":"casual - Here is a webpage for you to summarise in 3 points, using a few words" 
+                },
+                { 
+                    "id": 2, 
+                    "text": "Friendly", 
+                    "prompt":"friendly - Here is a webpage for you to summarise in 3 points, using a few words"
+                },
+                { 
+                    "id": 3, 
+                    "text": "Personal", 
+                    "prompt":"personal prompt - Here is a webpage for you to summarise in 3 points, using a few words"
+                }
             ]
         },
         "settings": [
