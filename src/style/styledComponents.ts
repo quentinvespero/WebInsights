@@ -18,11 +18,11 @@ export const StyledButtonBehaviour = styled.div`
 
 // below, ButtonType1 include the properties set in Styled StyledButtonBehaviour + its own properties
 export const ButtonType1 = styled(StyledButtonBehaviour)`
+    display:flex;
+    align-items:center;
+    justify-content:center;
     padding:.2rem 1rem;
     border-radius:.5rem;
     background:${colorsVariables.color3_dark};
-    align-items:center;
-    justify-content:center;
-    /* cursor:pointer; */
     border:solid .1rem ${colorsVariables.color3_dark};
 `

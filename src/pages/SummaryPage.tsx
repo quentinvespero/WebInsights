@@ -1,14 +1,11 @@
 import { FC, Suspense } from "react"
-import SummaryComponent from "../components/SummaryComponent"
+import SummaryComponent from "../components/summary/SummaryComponent"
 import { AppContentProps } from "../interfaces/globalProps"
 import { ErrorBoundary } from "react-error-boundary"
 import { styled } from "styled-components"
-import { colorsVariables } from "../style/variables"
-import ButtonWithIcon from "../components/ButtonWithIcon"
-import { ButtonType1 } from "../style/styledComponents"
-import CheckableButton from "../components/CheckableButton"
 import useAppContext from "../components/context/useAppContext"
 import { GlobalContext } from "../components/context/ContextProvider"
+import PromptSuggestionItem from "../components/summary/PromptSuggestionItem"
 
 interface SummaryPageProps {
     
@@ -19,32 +16,11 @@ const Style = styled.div `
     flex-direction:column;
     row-gap:1rem;
     
-    .tonesSelector{
+    .promptsSuggestions{
         display:flex;
+        flex-direction:column;
         gap:1rem;
-        flex-wrap:wrap;
-
-        & .checkableButton-selected{
-            & .tone{
-                background:${colorsVariables.color4};
-            }
-        }
-        
-        & .tone{
-            display:flex;
-            padding:.2rem 1rem;
-            border-radius:.5rem;
-            background:${colorsVariables.color3_dark};
-            align-items:center;
-            justify-content:center;
-            border:solid .1rem ${colorsVariables.color3_dark};
-            
-            & .buttonWithIcon{
-                span{
-                    display:none;
-                }
-            }
-        }
+        /* flex-wrap:wrap; */
     }
 `
 
@@ -52,14 +28,14 @@ const SummaryPage:FC<SummaryPageProps & AppContentProps> = ({appContent}) => {
     
     // const [selectedPromptObject, setSelectedPromptObject] = useState<PromptSuggestionInterface>(appContent.prompts.promptsSuggestions[promptId])
 
-    const {promptId, setPromptId} = useAppContext(GlobalContext)
+    const {promptId} = useAppContext(GlobalContext)
 
     const selectedPromptObject = appContent.prompts.promptsSuggestions[promptId]
 
     return (
         <Style className="summaryPage">
 
-            <p>tone used for the summary : <strong>{selectedPromptObject.id}</strong></p>
+            {/* <p>tone used for the summary : <strong>{selectedPromptObject.id}</strong></p> */}
             
             <ErrorBoundary fallback={<p>error</p>}>
                 <Suspense fallback={<p>loading</p>}>
@@ -67,15 +43,9 @@ const SummaryPage:FC<SummaryPageProps & AppContentProps> = ({appContent}) => {
                 </Suspense>
             </ErrorBoundary>
             
-            <div className="tonesSelector">
+            <div className="promptsSuggestions">
                 {appContent.prompts.promptsSuggestions.map((promptItem) => (
-
-                    <CheckableButton key={promptItem.id} selected={promptItem.id === promptId}>
-                        <ButtonType1 className='tone' onClick={() => setPromptId(promptItem.id)}>
-                            <ButtonWithIcon text={promptItem.text} description={promptItem.prompt}/>
-                        </ButtonType1>
-                    </CheckableButton>
-                    
+                    <PromptSuggestionItem key={promptItem.id} promptSuggestionItem={promptItem}/>
                 ))}
             </div>
         </Style>

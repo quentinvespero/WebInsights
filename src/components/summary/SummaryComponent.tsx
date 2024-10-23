@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react"
 import styled from "styled-components"
-import { colorsVariables } from "../style/variables"
-import { ToneOptionInterface } from "../interfaces/appContentInterfaces"
+import { colorsVariables } from "../../style/variables"
+import { ToneOptionInterface } from "../../interfaces/appContentInterfaces"
 
 interface SummaryComponentProps {
     prompt: ToneOptionInterface['prompt']

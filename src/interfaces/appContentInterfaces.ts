@@ -5,10 +5,10 @@ export interface AppContentInterface {
     pages: PageInterface[]
 
     // deprecated
-    tones: {
-        text: string
-        tonesOptions:ToneOptionInterface[]
-    }
+    // tones: {
+    //     text: string
+    //     tonesOptions:ToneOptionInterface[]
+    // }
     
     prompts: {
         text: string
@@ -39,6 +39,7 @@ export interface ToneOptionInterface {
 export interface PromptSuggestionInterface {
     id:number
     text:string
+    description:string
     prompt:string
 }
 export interface SettingItemInterface {

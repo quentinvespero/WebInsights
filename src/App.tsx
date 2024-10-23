@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect } from "react"
 import content from "../public/assets/content.json"
 import PageComponent from "./pages/PageComponent"
 import MenuBar from "./components/menuBar/MenuBar"
@@ -21,7 +21,7 @@ const Style = styled.div`
 const App = () => {
 
     // destructuring objects from the context
-    const { language, setLanguage, promptId, setPromptId } = useAppContext(GlobalContext)
+    const { language, setLanguage, setPromptId } = useAppContext(GlobalContext)
 
     // const [language, setLanguage] = useState<LanguageProps['language']>("en")
 

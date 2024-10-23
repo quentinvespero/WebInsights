@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { ButtonType1 } from '../../style/styledComponents'
 import CheckableButton from '../CheckableButton'
 import useAppContext from '../context/useAppContext'
 import { GlobalContext } from '../context/ContextProvider'
@@ -11,7 +10,7 @@ interface SettingItemValueProps{
 }
 
 const saveToChromeStorage = (settingId: string, settingValue: string|number) => {
-    if (chrome) {
+    if (chrome !== undefined && chrome.storage && chrome.storage.sync) {
         chrome.storage.sync.set({ [settingId]: settingValue }, () => {
             console.log(`${settingId} saved:`, settingValue)
         })
@@ -29,12 +28,13 @@ const SettingItemValue:FC<SettingItemValueProps> = ({settingItemValue,parentSett
             case 'language':
                 setLanguage(settingItemValue as string)
                 saveToChromeStorage(settingItemId,settingItemValue)
+                console.log('language set to :', settingItemValue)
                 break
                 
             case 'defaultTone':
-                () => setPromptId(settingItemValue as number)
-                // saveToChromeStorage(settingItemId,settingItemValue)
-                console.log('defaultTone :', settingItemValue)
+                setPromptId(settingItemValue as number)
+                saveToChromeStorage(settingItemId,settingItemValue)
+                console.log('tone set to :', settingItemValue)
                 break
 
             case 'personalPrompt':
@@ -50,15 +50,11 @@ const SettingItemValue:FC<SettingItemValueProps> = ({settingItemValue,parentSett
     }
 
     return (
-        <CheckableButton selected={settingItemValue === language || settingItemValue === promptId}>
-            <ButtonType1
-                className={`settingItemValue`}
-                // key={index} 
-                onClick={() => onClickActions(parentSettingItemId, settingItemValue)}
-            >
+        <div className="settingItemValue" onClick={() => onClickActions(parentSettingItemId, settingItemValue)}>
+            <CheckableButton selected={settingItemValue === language || settingItemValue === promptId} >
                 {settingItemValue}
-            </ButtonType1>
-        </CheckableButton>
+            </CheckableButton>
+        </div>
     )
 }
 
