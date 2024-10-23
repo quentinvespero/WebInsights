@@ -1,12 +1,14 @@
 import { FC, Suspense } from "react"
 import SummaryComponent from "../components/SummaryComponent"
-import { AppContentProps, PromptsProps } from "../interfaces/globalProps"
+import { AppContentProps } from "../interfaces/globalProps"
 import { ErrorBoundary } from "react-error-boundary"
 import { styled } from "styled-components"
 import { colorsVariables } from "../style/variables"
 import ButtonWithIcon from "../components/ButtonWithIcon"
 import { ButtonType1 } from "../style/styledComponents"
 import CheckableButton from "../components/CheckableButton"
+import useAppContext from "../components/context/useAppContext"
+import { GlobalContext } from "../components/context/ContextProvider"
 
 interface SummaryPageProps {
     
@@ -46,9 +48,11 @@ const Style = styled.div `
     }
 `
 
-const SummaryPage:FC<SummaryPageProps & AppContentProps & PromptsProps> = ({appContent, promptId, setPromptId}) => {
+const SummaryPage:FC<SummaryPageProps & AppContentProps> = ({appContent}) => {
     
     // const [selectedPromptObject, setSelectedPromptObject] = useState<PromptSuggestionInterface>(appContent.prompts.promptsSuggestions[promptId])
+
+    const {promptId, setPromptId} = useAppContext(GlobalContext)
 
     const selectedPromptObject = appContent.prompts.promptsSuggestions[promptId]
 

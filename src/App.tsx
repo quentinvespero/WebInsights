@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import content from "../public/assets/content.json"
 import PageComponent from "./pages/PageComponent"
 import MenuBar from "./components/menuBar/MenuBar"
 import { colorsVariables } from "./style/variables"
 import { Navigate, Route, Routes } from "react-router-dom"
 import styled from "styled-components"
-import { LanguageProps, PromptsProps } from "./interfaces/globalProps"
+import { GlobalContext } from "./components/context/ContextProvider"
+import useAppContext from "./components/context/useAppContext"
 
 const Style = styled.div`
     display:flex;
@@ -19,13 +20,16 @@ const Style = styled.div`
 
 const App = () => {
 
-    const [language, setLanguage] = useState<LanguageProps['language']>("en")
+    // destructuring objects from the context
+    const { language, setLanguage, promptId, setPromptId } = useAppContext(GlobalContext)
+
+    // const [language, setLanguage] = useState<LanguageProps['language']>("en")
 
     // app content, depending on the value of language (if it's set to french or english)
     const appContent = content[language as keyof typeof content]
 
     // set the prompt to use, based on its ID
-    const [promptId, setPromptId] = useState<PromptsProps['promptId']>(0)
+    // const [promptId, setPromptId] = useState<PromptsProps['promptId']>(0)
 
     // retrieving a possibly stored setting for the language
     useEffect(() => {
@@ -52,20 +56,7 @@ const App = () => {
             <Routes>
 
                 {appContent.pages.map((page) => (
-                    <Route 
-                        key={page.id} 
-                        path={page.id} 
-                        element={<PageComponent 
-                            appContent={appContent} 
-                            page={page} 
-                            setLanguage={setLanguage} 
-                            language={language}
-                            promptId={promptId}
-                            setPromptId={setPromptId}
-                            />
-                        }
-                    >
-                    </Route>
+                    <Route key={page.id} path={page.id} element={<PageComponent appContent={appContent} page={page}/>}/>
                 ))}
 
                 <Route path="*" element={<Navigate to="/summary" replace />}/>

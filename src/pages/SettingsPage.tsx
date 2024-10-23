@@ -4,10 +4,10 @@ import styled from "styled-components"
 import { colorsVariables } from "../style/variables"
 import { ButtonType1 } from "../style/styledComponents"
 import SettingItem from "../components/settings/SettingItem"
+import useAppContext from "../components/context/useAppContext"
+import { GlobalContext } from "../components/context/ContextProvider"
 
 interface SettingsPageProps {
-    // setLanguage: LanguageProps['setLanguage']
-    // language:LanguageProps['language']
 }
 
 const Style = styled.div`
@@ -45,7 +45,10 @@ const saveToChromeStorage = (settingId: string, settingValue: string|number) => 
     else console.warn('Chrome not found in current environment')
 }
 
-const SettingsPage:FC<SettingsPageProps & AppContentProps & LanguageProps & PromptsProps> = ({appContent, setLanguage, language, promptId, setPromptId}) => {
+// const SettingsPage:FC<SettingsPageProps & AppContentProps & LanguageProps & PromptsProps> = ({appContent, setLanguage, language, promptId, setPromptId}) => {
+const SettingsPage:FC<SettingsPageProps & AppContentProps> = ({appContent}) => {
+
+    const {setLanguage, language, setPromptId} = useAppContext(GlobalContext)
 
     const onClickActions = (settingItemId:string, settingItemValue:string|number) => {
         switch (settingItemId) {
@@ -77,8 +80,11 @@ const SettingsPage:FC<SettingsPageProps & AppContentProps & LanguageProps & Prom
         <Style className="settingsPage">
             {appContent.settings.map((settingItem) => (
                 <div key={settingItem.id} className="settingItem">
+                    
                     <SettingItem key={settingItem.id} settingItem={settingItem}/>
+                    
                     <h4>{settingItem.text}</h4>
+                    
                     <div className="settingItemValues">
                         {settingItem.values.map((settingItemValue, index) => (
                             <ButtonType1 

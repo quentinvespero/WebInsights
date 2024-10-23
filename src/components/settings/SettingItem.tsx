@@ -3,14 +3,14 @@ import { SettingItemInterface } from "../../interfaces/appContentInterfaces"
 import SettingItemValue from "./SettingItemValue"
 
 // storing the setting in the chrome storage
-const saveToChromeStorage = (settingId: string, settingValue: string|number) => {
-    if (chrome) {
-        chrome.storage.sync.set({ [settingId]: settingValue }, () => {
-            console.log(`${settingId} saved:`, settingValue)
-        })
-    }
-    else console.warn('Chrome not found in current environment')
-}
+// const saveToChromeStorage = (settingId: string, settingValue: string|number) => {
+//     if (chrome) {
+//         chrome.storage.sync.set({ [settingId]: settingValue }, () => {
+//             console.log(`${settingId} saved:`, settingValue)
+//         })
+//     }
+//     else console.warn('Chrome not found in current environment')
+// }
 
 interface SettingItemProps {
     // saveToChromeStorage:() => void
@@ -24,7 +24,7 @@ const SettingItem:FC<SettingItemProps> = ({settingItem}) => {
             
             <div className="settingItemValues">
                 {settingItem.values.map((settingItemValue, index) => (
-                    <SettingItemValue key={index} settingItemValue={settingItemValue}/>
+                    <SettingItemValue key={index} settingItemValue={settingItemValue} parentSettingItemId={settingItem.id}/>
                 ))}
             </div>
         </div>
