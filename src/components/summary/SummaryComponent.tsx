@@ -33,7 +33,10 @@ const fetchSummary = async (dataToSendToAPI: string): Promise<{ summary: string 
         },
         body: JSON.stringify({
             model: 'gpt-3.5-turbo',
-            messages: [{ role: 'user', content: dataToSendToAPI }],
+            messages: [
+                { role: 'system', content: 'Summarize the following webpage content.' },
+                { role: 'user', content: dataToSendToAPI }
+            ],
             max_tokens: 100
         })
     })
@@ -54,6 +57,7 @@ const SummaryComponent:FC<SummaryComponentProps> = ({prompt}) => {
 
     useEffect(() => {
         if (typeof chrome !== 'undefined') {
+
             chrome.runtime.onMessage.addListener((request) => {
                 if (request.action === 'startSummary') {
                     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
