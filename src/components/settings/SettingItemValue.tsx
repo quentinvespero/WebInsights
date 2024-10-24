@@ -1,8 +1,9 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import CheckableButton from '../CheckableButton'
 import useAppContext from '../context/useAppContext'
 import { GlobalContext } from '../context/ContextProvider'
 import { SettingItemInterface } from '../../interfaces/appContentInterfaces'
+import { ApiContext } from '../context/ApiKeyProvider'
 
 interface SettingItemValueProps{
     settingItemValue:string|number
@@ -20,9 +21,21 @@ const saveToChromeStorage = (settingId: string, settingValue: string|number) => 
 
 const SettingItemValue:FC<SettingItemValueProps> = ({settingItemValue,parentSettingItemId}) => {
 
+    // consuming the global context
     const {setLanguage, setPromptId, language, promptId} = useAppContext(GlobalContext)
 
+    // keeping track of whether the input menu (to enter the api key) is visible or not
+    const [showInputElement, setShowInputElement] = useState<boolean>(false)
+
+    // consuming the api context
+    const {apiKeyState, settingUpApiKey} = useAppContext(ApiContext)
+
+    // keeping track of the new API key
+    const [newApiKey, setNewApiKey] = useState('')
+
+    // a range of actions to perform, depending on the type of setting
     const onClickActions = (settingItemId:string, settingItemValue:string|number) => {
+        
         switch (settingItemId) {
             
             case 'language':
@@ -41,7 +54,7 @@ const SettingItemValue:FC<SettingItemValueProps> = ({settingItemValue,parentSett
                 break
 
             case 'apiKey':
-                // mettre fenetre en premier plan où entrer l'api key
+                setShowInputElement(!showInputElement)
                 break
 
             default:
@@ -52,7 +65,24 @@ const SettingItemValue:FC<SettingItemValueProps> = ({settingItemValue,parentSett
     return (
         <div className="settingItemValue" onClick={() => onClickActions(parentSettingItemId, settingItemValue)}>
             <CheckableButton selected={settingItemValue === language || settingItemValue === promptId} >
+                
                 {settingItemValue}
+
+                {parentSettingItemId === 'apiKey' && showInputElement && 
+                    <div className="inputElements">
+                        <input
+                            type="text"
+                            value={newApiKey}
+                            onChange={(e) => setNewApiKey(e.target.value)}
+                            placeholder="Enter API Key"
+                        />
+                        <button onClick={settingUpApiKey(newApiKey)}>Save API Key</button>
+                        <p>Current API Key: {apiKeyState}</p>
+                        test
+                        {apiKeyState}
+                    </div>
+                }
+
             </CheckableButton>
         </div>
     )

@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { Suspense, useEffect } from "react"
 import content from "../public/assets/content.json"
 import PageComponent from "./pages/PageComponent"
 import MenuBar from "./components/menuBar/MenuBar"
@@ -7,6 +7,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import styled from "styled-components"
 import { GlobalContext } from "./components/context/ContextProvider"
 import useAppContext from "./components/context/useAppContext"
+import { ErrorBoundary } from "react-error-boundary"
 
 const Style = styled.div`
     display:flex;
@@ -20,8 +21,8 @@ const Style = styled.div`
 
 const App = () => {
 
-    // destructuring objects from the context
-    const { language, setLanguage, setPromptId } = useAppContext(GlobalContext)
+    // destructuring objects from the global context
+    const { language } = useAppContext(GlobalContext)
 
     // const [language, setLanguage] = useState<LanguageProps['language']>("en")
 
@@ -31,24 +32,24 @@ const App = () => {
     // set the prompt to use, based on its ID
     // const [promptId, setPromptId] = useState<PromptsProps['promptId']>(0)
 
-    // retrieving a possibly stored setting for the language
-    useEffect(() => {
+    // // retrieving a possibly stored setting for the language
+    // useEffect(() => {
 
-        // checking whether chrome object is accessible or not
-        if (typeof chrome !== 'undefined' && chrome.storage) {
-            chrome.storage.sync.get('language', (result) => {
-                if (result.language) {
-                    setLanguage(result.language)
-                }
-            })
-            chrome.storage.sync.get('prompt', (result) => {
-                if (result.prompt) {
-                    setPromptId(result.prompt)
-                }
-            })
-        }
-        else console.warn('chrome.storage is not available in the current environment')
-    }, [])
+    //     // checking whether chrome object is accessible or not
+    //     if (typeof chrome !== 'undefined' && chrome.storage) {
+    //         chrome.storage.sync.get('language', (result) => {
+    //             if (result.language) {
+    //                 setLanguage(result.language)
+    //             }
+    //         })
+    //         chrome.storage.sync.get('prompt', (result) => {
+    //             if (result.prompt) {
+    //                 setPromptId(result.prompt)
+    //             }
+    //         })
+    //     }
+    //     else console.warn('chrome.storage is not available in the current environment')
+    // }, [])
 
     return (
         <Style className="app">
@@ -56,10 +57,16 @@ const App = () => {
             <Routes>
 
                 {appContent.pages.map((page) => (
-                    <Route key={page.id} path={page.id} element={<PageComponent appContent={appContent} page={page}/>}/>
+                    <Route key={page.id} path={page.id} element={
+                        <ErrorBoundary fallback={<p>error</p>}>
+                            <Suspense fallback={<p>loading</p>}>
+                                <PageComponent appContent={appContent} page={page}/>
+                            </Suspense>
+                        </ErrorBoundary>
+                    }/>
                 ))}
 
-                <Route path="*" element={<Navigate to="/summary" replace />}/>
+                <Route path="*" element={<Navigate to="summary" replace />}/>
 
             </Routes>
 

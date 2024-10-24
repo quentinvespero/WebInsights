@@ -53,7 +53,7 @@
             {
                 "id": "apiKey",
                 "text": "Your API key (if you want to use an other LLM than the local)",
-                "values": ["..."]
+                "values": ["enter your API key here"]
             }
         ]
     },

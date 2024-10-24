@@ -32,7 +32,7 @@ const fetchSummary = async (dataToSendToAPI: string): Promise<{ summary: string 
             'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-            model: 'gpt-3.5-turbo',
+            model: 'gpt-4o-mini',
             messages: [
                 { role: 'system', content: 'Summarize the following webpage content.' },
                 { role: 'user', content: dataToSendToAPI }
@@ -56,7 +56,7 @@ const SummaryComponent:FC<SummaryComponentProps> = ({prompt}) => {
     const [summary, setSummary] = useState<string>('')
 
     useEffect(() => {
-        if (typeof chrome !== 'undefined') {
+        if (typeof chrome !== 'undefined' && chrome.runtime ) {
 
             chrome.runtime.onMessage.addListener((request) => {
                 if (request.action === 'startSummary') {
