@@ -3,7 +3,8 @@ import CheckableButton from '../CheckableButton'
 import useAppContext from '../context/useAppContext'
 import { GlobalContext } from '../context/ContextProvider'
 import { SettingItemInterface } from '../../interfaces/appContentInterfaces'
-import { ApiContext } from '../context/ApiContextProvider'
+import styled from 'styled-components'
+import SettingItemApiSection from './SettingItemApiSection'
 
 interface SettingItemValueProps{
     settingItemValue:string|number
@@ -19,6 +20,37 @@ interface SettingItemValueProps{
 //     else console.warn('Chrome not found in current environment')
 // }
 
+const Style = styled.div`
+    display:flex;
+    flex-direction:column;
+    row-gap:1.5rem;
+    
+    /* & .apiKeySection{
+        display:flex;
+        flex-direction:column;
+        row-gap:.5rem;
+        
+        & .inputElement{
+            display:flex;
+            flex-direction:row;
+            column-gap:.5rem;
+
+            & input{
+                padding: .3rem 1rem;
+                border-radius: 3rem;
+                border: .15rem solid grey;
+                
+            }
+            & button{
+                padding: .3rem 1rem;
+                border-radius: 3rem;
+                border: .15rem solid grey;
+                cursor:pointer;
+            }
+        }
+    } */
+`
+
 const SettingItemValue:FC<SettingItemValueProps> = ({settingItemValue,parentSettingItemId}) => {
 
     // consuming the global context
@@ -28,10 +60,10 @@ const SettingItemValue:FC<SettingItemValueProps> = ({settingItemValue,parentSett
     const [showInputElement, setShowInputElement] = useState<boolean>(false)
 
     // consuming the api context
-    const {apiKeyState, settingUpApiKey} = useAppContext(ApiContext)
+    // const {partialApiKey, settingUpApiKey} = useAppContext(ApiContext)
 
     // keeping track of the new API key
-    const [newApiKey, setNewApiKey] = useState('')
+    // const [newApiKey, setNewApiKey] = useState('')
 
     // a range of actions to perform, depending on the type of setting
     const onClickActions = (parentSettingItemId:string, settingItemValue:string|number) => {
@@ -55,7 +87,7 @@ const SettingItemValue:FC<SettingItemValueProps> = ({settingItemValue,parentSett
     }
 
     return (
-        <div className="settingItemValue">
+        <Style className="settingItemValue">
             {/* <div className="button" onClick={() => onClickActions(parentSettingItemId, settingItemValue)}> */}
             <div className="button" onClick={() => onClickActions(parentSettingItemId,settingItemValue)}>
                 <CheckableButton selected={settingItemValue === language || settingItemValue === promptId}>
@@ -64,19 +96,23 @@ const SettingItemValue:FC<SettingItemValueProps> = ({settingItemValue,parentSett
             </div>
             
             {parentSettingItemId === 'apiKey' && showInputElement && 
-                <div className="inputElements">
-                    <input
-                        type="text"
-                        value={newApiKey}
-                        onChange={(e) => setNewApiKey(e.target.value)}
-                        placeholder="Enter API Key"
-                    />
-                    <button onClick={() => settingUpApiKey(newApiKey)}>Save API Key</button>
-                    <p>Current API Key: {apiKeyState}</p>
-                </div>
+                // <div className="apiKeySection">
+                //     <div className="inputElement">
+                //         <input
+                //             type="text"
+                //             value={newApiKey}
+                //             onChange={(e) => setNewApiKey(e.target.value)}
+                //             placeholder="Enter API Key"
+                //         />
+                //         <ButtonType1 onClick={() => settingUpApiKey(newApiKey)}>{'save'}</ButtonType1>
+                //     </div>
+                //     {<p>{'saved :)'}</p>}
+                //     {<p>current api key: {partialApiKey}</p>}
+                // </div>
+                <SettingItemApiSection/>
             }
 
-        </div>
+        </Style>
     )
 }
 

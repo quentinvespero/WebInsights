@@ -5,8 +5,9 @@ interface ContextProviderProps {
 }
 
 interface ApiKeyProps {
-    apiKeyState: string
-    settingUpApiKey:(apiKey:string) => void
+    // apiKeyState: string
+    partialApiKey:string
+    settingUpApiKey:(apiKey:string, callback:()=> void) => void
 }
 
 // creating the context, giving it the types for the useStates
@@ -18,14 +19,27 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
     // keeping track of the API key
     const [apiKeyState, setApiKeyState] = useState<string>('')
 
+    // part of the api key to send, to avoid showing the whole key
+    let partialApiKey:string = '[...]'+apiKeyState.slice(-7)
+
     // function to set the API key in both the useState and chrome local storage
-    const settingUpApiKey = (apiKey: string) => {
+    const settingUpApiKey = (apiKey: string, callback:() => void):void => {
         
         setApiKeyState(apiKey)
+        console.log('saving key in state :',apiKey)
 
-        if (chrome !== undefined && chrome.storage && chrome.storage.local){
-            chrome.storage.local.set({ apiKey: apiKey })
+
+        if (chrome !== undefined && chrome.storage && chrome.storage.local && chrome.runtime){
+            chrome.storage.local.set({ apiKey: apiKey }, 
+            () => {
+                if (!chrome.runtime.lastError) {
+                    console.log('API key saved successfully')
+                    callback()  // Run the callback on successful save
+                }
+                else console.error(chrome.runtime.lastError)
+            })
         }
+        else console.warn('not in chrome env it seems')
     }
 
     // loading the apiKey from the chrome local storage
@@ -44,7 +58,7 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
 
     return (
         // using the context previously created, passing the values that we want to use in this context
-        <ApiContext.Provider value={{apiKeyState,settingUpApiKey}}>
+        <ApiContext.Provider value={{partialApiKey,settingUpApiKey}}>
             {children}
         </ApiContext.Provider>
     )
