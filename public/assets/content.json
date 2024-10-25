@@ -41,12 +41,12 @@
                 "values": ["en", "fr"]
             },
             {
-                "id": "defaultTone",
+                "id": "defaultPrompt",
                 "text": "Default tones",
                 "values": [0,1,2,3]
             },
             {
-                "id": "personalPrompt",
+                "id": "personalPrompts",
                 "text": "Personal Prompt",
                 "values": ["Here is a webpage for you to summarise in 3 points, using a few words"]
             },
@@ -55,13 +55,44 @@
                 "text": "Your API key (if you want to use an other LLM than the local)",
                 "values": ["enter your API key here"]
             }
+        ],
+        "settingsV2": [
+            {
+                "id": "language",
+                "text": "Languages of the extension (english, french)",
+                "values": [
+                    {"id":0, "text":"English","value":"en"},
+                    {"id":1, "text":"French","value":"fr"}
+                ]
+            },
+            {
+                "id": "defaultPrompt",
+                "text": "Default tones",
+                "values": [
+                    {"id":0, "text":"Professional","value":""}
+                ]
+            },
+            {
+                "id": "personalPrompts",
+                "text": "Personal Prompt",
+                "values": [
+                    {"id":0, "text":"Prompt1","value":"Here is a webpage for you to summarise in 3 points, using a few words"},
+                    {"id":1, "text":"Prompt2","value":"Here is a webpage for you to summarise in 3 points, using a few words"}
+                ]
+            },
+            {
+                "id": "apiKey",
+                "text": "Your API key (if you want to use an other LLM than the local)",
+                "values": [
+                    {"id":0, "text":"enter your API key here","value":""}
+                ]
+            }
         ]
     },
     "fr": {
         "title": "Web Insights",
         "pages":[
             { "id": "", "text": "Résumé","icon":"summary.svg" },
-            { "id": "translations", "text": "Traductions","icon":"summary.svg" },
             { "id": "settings", "text": "Paramètres","icon":"summary.svg" }
         ],
         "prompts":{
@@ -70,7 +101,7 @@
                 { 
                     "id": 0, 
                     "text": "Professional", 
-                    "description":"test hgsq dlj hgqlsj hfl jd shfkjs qd h",
+                    "description":"A professionnal tone for the every day situations",
                     "prompt":"Professional - Here is a webpage for you to summarise in 3 points, using a few words" 
                 },
                 { 
@@ -96,18 +127,55 @@
         "settings": [
             {
                 "id": "language",
-                "text": "Languages",
+                "text": "Languages of the extension (english, french)",
                 "values": ["en", "fr"]
             },
             {
-                "id": "defaultTone",
-                "text": "Tones",
-                "values": ["1", "2", "3"]
+                "id": "defaultPrompt",
+                "text": "Default tones",
+                "values": [0,1,2,3]
             },
             {
-                "id": "personalPrompt",
+                "id": "personalPrompts",
                 "text": "Personal Prompt",
                 "values": ["Here is a webpage for you to summarise in 3 points, using a few words"]
+            },
+            {
+                "id": "apiKey",
+                "text": "Your API key (if you want to use an other LLM than the local)",
+                "values": ["enter your API key here"]
+            }
+        ],
+        "settingsV2": [
+            {
+                "id": "language",
+                "text": "Languages of the extension (english, french)",
+                "values": [
+                    {"id":0, "text":"English","value":"en"},
+                    {"id":1, "text":"French","value":"fr"}
+                ]
+            },
+            {
+                "id": "defaultPrompt",
+                "text": "Default tones",
+                "values": [
+                    {"id":0, "text":"Professional","value":""}
+                ]
+            },
+            {
+                "id": "personalPrompts",
+                "text": "Personal Prompt",
+                "values": [
+                    {"id":0, "text":"Prompt1","value":"Here is a webpage for you to summarise in 3 points, using a few words"},
+                    {"id":1, "text":"Prompt2","value":"Here is a webpage for you to summarise in 3 points, using a few words"}
+                ]
+            },
+            {
+                "id": "apiKey",
+                "text": "Your API key (if you want to use an other LLM than the local)",
+                "values": [
+                    {"id":0, "text":"enter your API key here","value":""}
+                ]
             }
         ]
     }

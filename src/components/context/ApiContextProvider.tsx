@@ -6,7 +6,6 @@ interface ContextProviderProps {
 
 interface ApiKeyProps {
     apiKeyState: string
-    // setApiKeyState:Dispatch<SetStateAction<string>>
     settingUpApiKey:(apiKey:string) => void
 }
 
@@ -29,12 +28,15 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
         }
     }
 
-    // loading the 
+    // loading the apiKey from the chrome local storage
     useEffect(() => {
         if (apiKeyState === ''){
             if (chrome !== undefined && chrome.storage && chrome.storage.local){
                 chrome.storage.local.get(['apiKey'], (result) => {
-                    if (result.apiKey) setApiKeyState(result.apiKey)
+                    if (result.apiKey) {
+                        setApiKeyState(result.apiKey)
+                        console.log(result.apiKey)
+                    }
                 })
             }
         }

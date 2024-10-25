@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from "react"
+import { Suspense } from "react"
 import content from "../public/assets/content.json"
 import PageComponent from "./pages/PageComponent"
 import MenuBar from "./components/menuBar/MenuBar"
