@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { ButtonType1 } from "../../style/styledComponents"
 import useAppContext from "../context/useAppContext"
 import { ApiContext } from "../context/ApiContextProvider"
