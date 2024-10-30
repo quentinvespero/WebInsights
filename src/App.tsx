@@ -60,13 +60,13 @@ const App = () => {
     //     else console.warn('chrome.storage is not available in the current environment')
     // }, [])
 
-    const {partialApiKey} = useContext(ApiContext)
+    // const {partialApiKey} = useContext(ApiContext)
 
     return (
         <Style className="app">
 
             {/* checking whether the api key has been provided */}
-            {partialApiKey.length < 4 && <p className="popup">{appContent.popupMessages.apiKeyEmpty}</p>}
+            {/* {partialApiKey.length < 4 && <p className="popup">{appContent.popupMessages.apiKeyEmpty}</p>} */}
 
             <Routes>
 
