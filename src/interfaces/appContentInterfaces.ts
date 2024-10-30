@@ -3,12 +3,6 @@
 export interface AppContentInterface {
     title: string
     pages: PageInterface[]
-
-    // deprecated
-    // tones: {
-    //     text: string
-    //     tonesOptions:ToneOptionInterface[]
-    // }
     
     prompts: {
         text: string

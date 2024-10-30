@@ -59,7 +59,7 @@ const SummaryComponent:FC<SummaryComponentProps> = ({prompt}) => {
     const [summary, setSummary] = useState<string>('')
 
     useEffect(() => {
-        if (typeof chrome !== 'undefined' && chrome.runtime ) {
+        if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage.addListener ) {
 
             chrome.runtime.onMessage.addListener((request) => {
                 if (request.action === 'startSummary') {
@@ -82,9 +82,7 @@ const SummaryComponent:FC<SummaryComponentProps> = ({prompt}) => {
                 }
             })
         }
-        else {
-            console.warn('chrome is not available in the current environment')
-        }
+        else console.warn('chrome is not available in the current environment')
     }, [])
 
     return (

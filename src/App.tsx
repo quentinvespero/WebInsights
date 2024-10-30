@@ -6,9 +6,9 @@ import { colorsVariables } from "./style/variables"
 import { Navigate, Route, Routes } from "react-router-dom"
 import styled from "styled-components"
 import { GlobalContext } from "./components/context/ContextProvider"
-import useAppContext from "./components/context/useAppContext"
 import { ErrorBoundary } from "react-error-boundary"
 import { ApiContext } from "./components/context/ApiContextProvider"
+// import { ApiContext } from "./components/context/ApiContextProvider"
 
 const Style = styled.div`
     display:flex;
@@ -31,42 +31,19 @@ const Style = styled.div`
 const App = () => {
 
     // destructuring objects from the global context
-    const { language } = useAppContext(GlobalContext)
-
-    // const [language, setLanguage] = useState<LanguageProps['language']>("en")
+    // const { language } = useAppContext(GlobalContext)
+    const { language } = useContext(GlobalContext)
 
     // app content, depending on the value of language (if it's set to french or english)
     const appContent = content[language as keyof typeof content]
 
-    // set the prompt to use, based on its ID
-    // const [promptId, setPromptId] = useState<PromptsProps['promptId']>(0)
-
-    // // retrieving a possibly stored setting for the language
-    // useEffect(() => {
-
-    //     // checking whether chrome object is accessible or not
-    //     if (typeof chrome !== 'undefined' && chrome.storage) {
-    //         chrome.storage.sync.get('language', (result) => {
-    //             if (result.language) {
-    //                 setLanguage(result.language)
-    //             }
-    //         })
-    //         chrome.storage.sync.get('prompt', (result) => {
-    //             if (result.prompt) {
-    //                 setPromptId(result.prompt)
-    //             }
-    //         })
-    //     }
-    //     else console.warn('chrome.storage is not available in the current environment')
-    // }, [])
-
-    // const {partialApiKey} = useContext(ApiContext)
+    const {partialApiKey} = useContext(ApiContext)
 
     return (
         <Style className="app">
 
             {/* checking whether the api key has been provided */}
-            {/* {partialApiKey.length < 4 && <p className="popup">{appContent.popupMessages.apiKeyEmpty}</p>} */}
+            {partialApiKey.length < 4 && <p className="popup">{appContent.popupMessages.apiKeyEmpty}</p>}
 
             <Routes>
 

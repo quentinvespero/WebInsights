@@ -1,7 +1,6 @@
 import { FC } from "react"
 import { SettingItemInterface } from "../../interfaces/appContentInterfaces"
 import SettingItemValue from "./SettingItemValue"
-import { ApiContextProvider } from "../context/ApiContextProvider"
 
 interface SettingItemProps {
     settingItem:SettingItemInterface
@@ -14,9 +13,7 @@ const SettingItem:FC<SettingItemProps> = ({settingItem}) => {
             
             <div className="settingItemValues">
                 {settingItem.values.map((settingItemValue, index) => (
-                    <ApiContextProvider key={index}>
-                        <SettingItemValue settingItemValue={settingItemValue} parentSettingItemId={settingItem.id}/>
-                    </ApiContextProvider>
+                    <SettingItemValue key={index} settingItemValue={settingItemValue} parentSettingItemId={settingItem.id}/>
                 ))}
             </div>
         </div>

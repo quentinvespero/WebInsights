@@ -1,8 +1,5 @@
-import { createContext, Dispatch, FC, ReactNode, SetStateAction, useEffect, useState } from "react"
-
-interface ContextProviderProps {
-    children:ReactNode
-}
+import { createContext, Dispatch, FC, SetStateAction, useEffect, useState } from "react"
+import { ContextProviderProps } from "../../interfaces/globalProps"
 
 interface GlobalContextProps{
     savingSetting:(settingId:string, settingValue:string|number) => void
@@ -18,15 +15,21 @@ interface PromptsProps {
     setPromptId:Dispatch<SetStateAction<number>>
 }
 
-// interface ApiKeyProps {
-//     personalApiKey: string
-//     setPersonalApiKey:Dispatch<SetStateAction<string>>
-// }
-
 // creating the context, giving it the types for the useStates
 // leaving the default value undefined because it will be given afterward by the default values of the useState below
-const GlobalContext = createContext<LanguageProps & PromptsProps & GlobalContextProps | undefined>(undefined)
+const GlobalContext = createContext<LanguageProps & PromptsProps & GlobalContextProps>({
+    language: 'en',
+    setLanguage: () => '',
+    promptId: 0,
+    setPromptId: () => 0,
+    savingSetting: () => {}
+})
 
+// ------------------------------------------
+// ------------------------------------------
+// DEPRECATED context : will be split into LanguageContextProvider and PromptContextProvider
+// ------------------------------------------
+// ------------------------------------------
 const ContextProvider: FC<ContextProviderProps> = ({ children }) => {
 
     // keeping track of the language currently used in the app
@@ -35,7 +38,7 @@ const ContextProvider: FC<ContextProviderProps> = ({ children }) => {
     // keeping track of the selected prompt based on its ID
     const [promptId, setPromptId] = useState<PromptsProps['promptId']>(0)
 
-    // retrieving a possibly stored setting for the language
+    // retrieving a possibly stored setting for language or prompt
     useEffect(() => {
 
         // checking whether chrome object is accessible or not
@@ -68,6 +71,7 @@ const ContextProvider: FC<ContextProviderProps> = ({ children }) => {
             case 'language':
                 setLanguage(settingValue as string)
                 saveToChrome(settingItemId,settingValue)
+                // savingToChromeStorage(settingItemId,settingValue, true)
                 console.log('setting saved :',settingItemId,settingValue)
                 break
             case 'defaultPrompt':

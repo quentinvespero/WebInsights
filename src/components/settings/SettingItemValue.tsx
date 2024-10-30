@@ -24,6 +24,7 @@ const Style = styled.div`
     display:flex;
     flex-direction:column;
     row-gap:1.5rem;
+    align-items:flex-start;
     
     /* & .apiKeySection{
         display:flex;

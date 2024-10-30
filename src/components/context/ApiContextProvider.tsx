@@ -33,7 +33,6 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
         setApiKeyState(apiKey)
         // console.log('saving key in state :',apiKey)
 
-
         if (chrome !== undefined && chrome.storage && chrome.storage.local && chrome.runtime){
             chrome.storage.local.set({ apiKey: apiKey }, 
             () => {
