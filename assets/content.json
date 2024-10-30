@@ -3,7 +3,7 @@
         "title": "Web Insights",
         "pages":[
             { "id": "summary", "text": "Summary","icon":"summary.svg" },
-            { "id": "settings", "text": "Settings","icon":"summary.svg" }
+            { "id": "settings", "text": "Settings","icon":"settings.svg" }
         ],
         "prompts":{
             "text":"Suggested tones (prompts)",
