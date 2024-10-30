@@ -15,8 +15,8 @@ const Style = styled.div`
     align-items:center;
     background:${colorsVariables.color1};
     color:${colorsVariables.color2};
-    min-width:20rem;
-    min-height:30rem;
+    /* min-width:20rem; */
+    /* min-height:30rem; */
 `
 
 const App = () => {

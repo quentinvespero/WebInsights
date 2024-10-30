@@ -1,18 +1,38 @@
-// import { FC } from "react"
+import { FC } from "react"
+import ButtonWithIcon from "../ButtonWithIcon"
+import { PageInterface } from "../../interfaces/appContentInterfaces"
+import { styled } from "styled-components"
 
-// interface MenuBarItemProps {
-//     id:string
-//     text:string
-//     icon?:string
-// }
+interface MenuBarItemProps {
+    selected:boolean
+    pageItem:PageInterface
+}
 
-// const MenuBarItem:FC<MenuBarItemProps> = ({id,text, icon}) => {
-//     return (
-//         <div>
-//             {/* <p>{id}</p> */}
-//             <p>{text}</p>
-//         </div>
-//     )
-// }
+const Style = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size:.75rem;
+    
+    .buttonWithIcon{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap:.5rem;
+    }
+`
 
-// export default MenuBarItem
+const MenuBarItem:FC<MenuBarItemProps> = ({selected, pageItem}) => {
+    return (
+        <Style className="menuBarItem">
+            <ButtonWithIcon 
+                text={pageItem.text} 
+                imageName={pageItem.icon} 
+                iconSize="1.5rem"
+            />
+            {selected && <div className="dot">•</div>}
+        </Style>
+    )
+}
+
+export default MenuBarItem

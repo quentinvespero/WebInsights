@@ -6,11 +6,6 @@ export const StyledButtonBehaviour = styled.div`
     transition:ease-in-out .1s;
     cursor:pointer;
     
-    @media (hover:hover){
-        &:hover{
-            filter:opacity(.7);
-        }
-    }
     &:active{
         transform:scale(.95);
     }
@@ -25,4 +20,10 @@ export const ButtonType1 = styled(StyledButtonBehaviour)`
     border-radius:.5rem;
     background:${colorsVariables.color3_dark};
     border:solid .1rem ${colorsVariables.color3_dark};
+
+    @media (hover:hover){
+        &:hover{
+            background:${colorsVariables.color_transparent_dark}
+        }
+    }
 `

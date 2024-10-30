@@ -50,7 +50,8 @@ const ButtonWithIcon:FC<ButtonWithImageProps> = ({imageName, text, description, 
             display:'flex'
         },
         image:{
-            width: iconSize ? iconSize : '1rem'
+            width: iconSize ? iconSize : '1rem',
+            height: iconSize ? iconSize : '1rem'
         },
         text:{
             
