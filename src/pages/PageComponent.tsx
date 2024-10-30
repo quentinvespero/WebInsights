@@ -11,7 +11,7 @@ interface PageComponentProps {
 
 const Style = styled.div`
     width:85%;
-    padding-bottom:6rem;
+    padding-bottom:10rem;
 `
 
 const PageComponent:FC<PageComponentProps & AppContentProps> = ({ appContent, page }) => {

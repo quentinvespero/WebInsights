@@ -15,6 +15,9 @@ export interface AppContentInterface {
         promptsSuggestions:PromptSuggestionInterface[]
     }
     settings: SettingItemInterface[]
+    popupMessages:{
+        [key:string]:string
+    }
 }
 
 export interface AppContentLanguageInterface {

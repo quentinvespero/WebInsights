@@ -43,13 +43,13 @@ const ContextProvider: FC<ContextProviderProps> = ({ children }) => {
             chrome.storage.sync.get(['language'], (result) => {
                 if (result.language) {
                     setLanguage(result.language)
-                    console.log(result.language)
+                    console.log('a language setting has been restored from chrome storage')
                 }
             })
             chrome.storage.sync.get(['defaultPrompt'], (result) => {
                 if (result.defaultPrompt) {
                     setPromptId(result.defaultPrompt)
-                    console.log(result.defaultPrompt)
+                    console.log('a default prompt has been restored from chrome storage')
                 }
             })
         }

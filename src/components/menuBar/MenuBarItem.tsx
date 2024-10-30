@@ -28,7 +28,7 @@ const MenuBarItem:FC<MenuBarItemProps> = ({selected, pageItem}) => {
             <ButtonWithIcon 
                 text={pageItem.text} 
                 imageName={pageItem.icon} 
-                iconSize="1.5rem"
+                iconSize="1rem"
             />
             {selected && <div className="dot">•</div>}
         </Style>

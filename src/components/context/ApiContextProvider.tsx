@@ -5,14 +5,19 @@ interface ContextProviderProps {
 }
 
 interface ApiKeyProps {
-    // apiKeyState: string
+    apiKeyState:string
     partialApiKey:string
     settingUpApiKey:(apiKey:string, callback:()=> void) => void
 }
 
 // creating the context, giving it the types for the useStates
 // leaving the default value undefined because it will be given afterward by the default values of the useState below
-const ApiContext = createContext<ApiKeyProps | undefined>(undefined)
+// const ApiContext = createContext<ApiKeyProps | undefined>(undefined)
+const ApiContext = createContext<ApiKeyProps>({
+    apiKeyState:'',
+    partialApiKey:'',
+    settingUpApiKey:() => {}
+})
 
 const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
 
@@ -20,13 +25,13 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
     const [apiKeyState, setApiKeyState] = useState<string>('')
 
     // part of the api key to send, to avoid showing the whole key
-    let partialApiKey:string = '[...]'+apiKeyState.slice(-7)
+    let partialApiKey:string = '***'+apiKeyState.slice(-5)
 
     // function to set the API key in both the useState and chrome local storage
     const settingUpApiKey = (apiKey: string, callback:() => void):void => {
         
         setApiKeyState(apiKey)
-        console.log('saving key in state :',apiKey)
+        // console.log('saving key in state :',apiKey)
 
 
         if (chrome !== undefined && chrome.storage && chrome.storage.local && chrome.runtime){
@@ -49,7 +54,7 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
                 chrome.storage.local.get(['apiKey'], (result) => {
                     if (result.apiKey) {
                         setApiKeyState(result.apiKey)
-                        console.log(result.apiKey)
+                        console.log('an api key have been restored from chrome storage')
                     }
                 })
             }
@@ -58,7 +63,7 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
 
     return (
         // using the context previously created, passing the values that we want to use in this context
-        <ApiContext.Provider value={{partialApiKey,settingUpApiKey}}>
+        <ApiContext.Provider value={{partialApiKey,settingUpApiKey, apiKeyState}}>
             {children}
         </ApiContext.Provider>
     )

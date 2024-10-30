@@ -1,7 +1,8 @@
-import { FC, useEffect, useState } from "react"
+import { FC, useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { colorsVariables } from "../../style/variables"
 import { ToneOptionInterface } from "../../interfaces/appContentInterfaces"
+import { ApiContext } from "../context/ApiContextProvider"
 
 interface SummaryComponentProps {
     prompt: ToneOptionInterface['prompt']
@@ -21,15 +22,17 @@ const Style = styled.div`
 const fetchSummary = async (dataToSendToAPI: string): Promise<{ summary: string }> => {
 
     // getting the api key from local storage
-    const { apiKey } = await new Promise<{ apiKey: string }>((resolve) => {
-        chrome.storage.local.get('apiKey', (result) => resolve({ apiKey: result.apiKey }))
-    })
+    // const { apiKey } = await new Promise<{ apiKey: string }>((resolve) => {
+    //     chrome.storage.local.get('apiKey', (result) => resolve({ apiKey: result.apiKey }))
+    // })
+
+    const {apiKeyState} = useContext(ApiContext)
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
+            'Authorization': `Bearer ${apiKeyState}`
         },
         body: JSON.stringify({
             model: 'gpt-4o-mini',
@@ -87,10 +90,7 @@ const SummaryComponent:FC<SummaryComponentProps> = ({prompt}) => {
     return (
         <Style className="summaryComponent">
             <p>{summary}</p>
-            test
             <ul>
-                <li>test</li>
-                <li>test</li>
                 <li>test</li>
                 <li>test</li>
                 <li>test</li>
