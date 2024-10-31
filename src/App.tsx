@@ -7,8 +7,9 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import styled from "styled-components"
 import { GlobalContext } from "./components/context/ContextProvider"
 import { ErrorBoundary } from "react-error-boundary"
-import { ApiContext } from "./components/context/ApiContextProvider"
 // import { ApiContext } from "./components/context/ApiContextProvider"
+import FallbackError from "./components/fallbackComponents/FallbackError"
+import FallbackLoading from "./components/fallbackComponents/FallbackLoading"
 
 const Style = styled.div`
     display:flex;
@@ -16,16 +17,11 @@ const Style = styled.div`
     align-items:center;
     background:${colorsVariables.color1};
     color:${colorsVariables.color2};
-    min-width:20rem;
+    /* min-width:20rem; */
+    /* margin:0rem 1rem; */
     min-height:35rem;
     font-size: .85rem;
-
-    & > .popup{
-        padding:.5rem 2rem;
-        margin-top:1rem;
-        background:darkred;
-        border-radius:.5rem;
-    }
+    width:100%;
 `
 
 const App = () => {
@@ -37,20 +33,20 @@ const App = () => {
     // app content, depending on the value of language (if it's set to french or english)
     const appContent = content[language as keyof typeof content]
 
-    const {partialApiKey} = useContext(ApiContext)
+    // const {partialApiKey} = useContext(ApiContext)
 
     return (
         <Style className="app">
 
             {/* checking whether the api key has been provided */}
-            {partialApiKey.length < 4 && <p className="popup">{appContent.popupMessages.apiKeyEmpty}</p>}
+            {/* {partialApiKey.length < 4 && <p className="popup">{appContent.popupMessages.apiKeyEmpty}</p>} */}
 
             <Routes>
 
                 {appContent.pages.map((page) => (
                     <Route key={page.id} path={page.id} element={
-                        <ErrorBoundary fallback={<p>error</p>}>
-                            <Suspense fallback={<p>loading</p>}>
+                        <ErrorBoundary fallback={<FallbackError/>}>
+                            <Suspense fallback={<FallbackLoading/>}>
                                 <PageComponent appContent={appContent} page={page}/>
                             </Suspense>
                         </ErrorBoundary>

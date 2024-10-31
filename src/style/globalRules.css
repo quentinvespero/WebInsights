@@ -4,12 +4,17 @@
 html{
     background-color: var(--color1);
     /* font-family: "Rubik"; */
-    font-family: "Titillium Web";
+    font-family: "Titillium Web", Arial;
     /* font-family: "Archivo Narrow"; */
 }
 body{
     margin: 0;
     /* font-size: .85rem; */
+
+    /* display: flex; */
+    width: 100%;
+    min-width: 20rem;
+    justify-content: center;
 }
 p{
     margin: 0;

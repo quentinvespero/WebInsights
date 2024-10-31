@@ -16,17 +16,17 @@ const Style = styled.div`
     justify-content:center;
     align-items:center;
     column-gap:2rem;
-    padding:.5rem 0rem;
-    padding-top:1rem;
+    /* padding:.5rem 0rem; */
+    padding-top:.7rem;
     background:${colorsVariables.color_transparent_dark};
-    /* border-top:.2rem solid ${colorsVariables.color3_dark}; */
-    backdrop-filter:blur(1.5rem);
+    border-top:.15rem solid ${colorsVariables.color3_dark};
+    backdrop-filter:blur(2rem);
     width:100%;
     position:fixed;
     bottom:0;
     z-index:1;
     overflow-x:scroll;
-    box-shadow:0 0 2rem 2.5rem ${colorsVariables.color_transparent_dark};
+    /* box-shadow:0 0 2rem 2.5rem ${colorsVariables.color_transparent_dark}; */
     align-items:flex-start;
 `
 
