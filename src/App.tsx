@@ -7,7 +7,6 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import styled from "styled-components"
 import { GlobalContext } from "./components/context/ContextProvider"
 import { ErrorBoundary } from "react-error-boundary"
-// import { ApiContext } from "./components/context/ApiContextProvider"
 import FallbackError from "./components/fallbackComponents/FallbackError"
 import FallbackLoading from "./components/fallbackComponents/FallbackLoading"
 
@@ -17,8 +16,6 @@ const Style = styled.div`
     align-items:center;
     background:${colorsVariables.color1};
     color:${colorsVariables.color2};
-    /* min-width:20rem; */
-    /* margin:0rem 1rem; */
     min-height:35rem;
     font-size: .85rem;
     width:100%;

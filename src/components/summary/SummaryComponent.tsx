@@ -3,10 +3,11 @@ import styled from "styled-components"
 import { colorsVariables } from "../../style/variables"
 import { ToneOptionInterface } from "../../interfaces/appContentInterfaces"
 import { ApiContext } from "../context/ApiContextProvider"
+import { GlobalContext } from "../context/ContextProvider"
 
-interface SummaryComponentProps {
-    prompt: ToneOptionInterface['prompt']
-}
+// interface SummaryComponentProps {
+//     prompt: ToneOptionInterface['prompt']
+// }
 
 const Style = styled.div`
     display:flex;
@@ -18,6 +19,10 @@ const Style = styled.div`
     border:solid .1rem ${colorsVariables.color3_dark};
 `
 
+const {apiKeyState} = useContext(ApiContext)
+
+const {} = useContext(GlobalContext)
+
 // sending the content of the webpage to the API
 const fetchSummary = async (dataToSendToAPI: string): Promise<{ summary: string }> => {
 
@@ -25,8 +30,6 @@ const fetchSummary = async (dataToSendToAPI: string): Promise<{ summary: string 
     // const { apiKey } = await new Promise<{ apiKey: string }>((resolve) => {
     //     chrome.storage.local.get('apiKey', (result) => resolve({ apiKey: result.apiKey }))
     // })
-
-    const {apiKeyState} = useContext(ApiContext)
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
@@ -54,15 +57,19 @@ const extractText = (): string => {
     return document.body.innerText
 }
 
-const SummaryComponent:FC<SummaryComponentProps> = ({prompt}) => {
+const SummaryComponent = () => {
 
     const [summary, setSummary] = useState<string>('')
 
     useEffect(() => {
         if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage.addListener ) {
 
+            // it listens to get a possible message 'startSummary' from the script
             chrome.runtime.onMessage.addListener((request) => {
                 if (request.action === 'startSummary') {
+
+                    console.log('startSummary message received')
+
                     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                         
                         // Run extractText in the tab's context to get the page's text
@@ -73,16 +80,18 @@ const SummaryComponent:FC<SummaryComponentProps> = ({prompt}) => {
                             },
                             async (results) => {
                                 const extractedText = results[0].result as string
-                                const dataToSendToAPI = `${prompt} ${extractedText}` // Add dataToSendToAPI to the text
-                                const apiDataResponse = await fetchSummary(dataToSendToAPI)  // Fetch the summary from the API
-                                setSummary(apiDataResponse.summary)  // Set the summary in state
+                                const dataToSendToAPI = `${prompt} ${extractedText}` 
+                                const apiDataResponse = await fetchSummary(dataToSendToAPI)
+                                setSummary(apiDataResponse.summary)
                             }
                         )
                     })
                 }
             })
         }
-        else console.warn('chrome is not available in the current environment')
+        else {
+            console.warn('chrome is not available in the current environment')
+        }
     }, [])
 
     return (
