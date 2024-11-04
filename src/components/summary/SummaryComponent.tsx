@@ -15,22 +15,15 @@ const Style = styled.div`
 `
 
 // sending the content of the webpage to the API
-const fetchSummary = async (dataToSendToAPI: string): Promise<{ summary: string }> => {
-    
-    const {apiKeyState} = useContext(ApiContext)
+const fetchSummary = async (apiKey:string, dataToSendToAPI: string): Promise<{ summary: string }> => {
 
-    console.log(apiKeyState)
-
-    // getting the api key from local storage
-    // const { apiKey } = await new Promise<{ apiKey: string }>((resolve) => {
-    //     chrome.storage.local.get('apiKey', (result) => resolve({ apiKey: result.apiKey }))
-    // })
+    // console.log('apikey in fetchSummary function :',apiKey)
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKeyState}`
+            'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
             model: 'gpt-4o-mini',
@@ -54,17 +47,13 @@ const extractText = (): string => {
 
 const SummaryComponent = () => {
 
+    // summary, which is the response from the API
     const [summary, setSummary] = useState<string>('')
 
-    // getting current promptId from the globalContext
-    // const {promptId} = useContext(GlobalContext)
-
-    // getting the prompt from the AppContent, depending on it's id in promptId form the GlobalContext
-    // const prompt = useContext(AppContentContext).appContent.prompts.promptsSuggestions[promptId].prompt
-
     const prompt = useContext(PromptContext).promptText
+    const apiKey = useContext(ApiContext).apiKeyState
 
-    console.log(prompt)
+    // console.log(prompt)
 
     useEffect(() => {
         if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage.addListener ) {
@@ -86,7 +75,7 @@ const SummaryComponent = () => {
                             async (results) => {
                                 const extractedText = results[0].result as string
                                 const dataToSendToAPI = `${prompt} ${extractedText}` 
-                                const apiDataResponse = await fetchSummary(dataToSendToAPI)
+                                const apiDataResponse = await fetchSummary(apiKey,dataToSendToAPI)
                                 setSummary(apiDataResponse.summary)
                             }
                         )
@@ -95,8 +84,19 @@ const SummaryComponent = () => {
             })
         }
         else {
-            console.warn('chrome is not available in the current environment')
-            console.log(useContext(ApiContext).apiKeyState)
+            // console.warn('chrome is not available in the current environment')
+            const extractedText = "Hello here is a dummy text to be summarised about the monkey in the zoo that can't stop making fun of the people walking around and watching him"
+            const dataToSendToAPI = `${prompt} ${extractedText}`
+            
+            console.log(dataToSendToAPI)
+            
+            // async function to handle the API call
+            const apiFetch = async () => {
+                const apiDataResponse = await fetchSummary(apiKey,dataToSendToAPI)
+                setSummary(apiDataResponse.summary)
+            }
+            
+            apiFetch()
         }
     }, [])
 

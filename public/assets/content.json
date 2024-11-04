@@ -12,25 +12,25 @@
                     "id": 0, 
                     "text": "Neutral", 
                     "description":"Neutral, factual tone",
-                    "prompt":"Professional - Here is a webpage for you to summarise in 3 points, using a few words" 
+                    "prompt":"Professional - Here is a webpage for you to summarise in 3 points, using a few words :" 
                 },
                 { 
                     "id": 1, 
                     "text": "Casual", 
                     "description":"A friendly tone, as if it was a friend of you",
-                    "prompt":"casual - Here is a webpage for you to summarise in 3 points, using a few words" 
+                    "prompt":"casual - Here is a webpage for you to summarise in 3 points, using a few words :" 
                 },
                 { 
                     "id": 2, 
                     "text": "Emoji", 
                     "description":"A summary using only emojis",
-                    "prompt":"friendly - Here is a webpage for you to summarise in 3 points, using a few words"
+                    "prompt":"friendly - Here is a webpage for you to summarise in 3 points, using a few words :"
                 },
                 { 
                     "id": 3, 
                     "text": "Explain like I'm five", 
                     "description":"A summary that uses simple terms",
-                    "prompt":"personal prompt - Here is a webpage for you to summarise in 3 points, using a few words"
+                    "prompt":"personal prompt - Here is a webpage for you to summarise in 3 points, using a few words :"
                 }
             ]
         },
