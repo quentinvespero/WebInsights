@@ -50,7 +50,7 @@ const SettingItemApiSection = () => {
     // handling click
     const handlingApiKeySaving = () => {
 
-        if (newApiKey.length > 5) {
+        if (newApiKey.length > 10) {
             settingUpApiKey(newApiKey, () => {
                 setIsKeySaved(true)
                 setTimeout(() => setIsKeySaved(false), 2000)
