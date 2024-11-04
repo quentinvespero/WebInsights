@@ -9,7 +9,8 @@ import { ApiContextProvider } from './components/context/ApiContextProvider.tsx'
 import { ErrorBoundary } from 'react-error-boundary'
 import FallbackError from './components/fallbackComponents/FallbackError.tsx'
 import FallbackLoading from './components/fallbackComponents/FallbackLoading.tsx'
-// import ContextProvider from './components/ContextProvider.tsx'
+import { AppContentProvider } from './components/context/AppContentContextProvider.tsx'
+import { PromptProvider } from './components/context/PromptContextProvider.tsx'
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -18,7 +19,11 @@ createRoot(document.getElementById('root')!).render(
                 <HashRouter>
                     <ContextProvider>
                         <ApiContextProvider>
-                            <App/>
+                            <AppContentProvider>
+                                <PromptProvider>
+                                    <App/>
+                                </PromptProvider>
+                            </AppContentProvider>
                         </ApiContextProvider>
                     </ContextProvider>
                 </HashRouter>

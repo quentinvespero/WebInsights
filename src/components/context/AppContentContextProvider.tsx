@@ -17,11 +17,6 @@ interface AppContentInterface {
     }
 }
 
-// interface AppContentLanguageInterface {
-//     en: AppContentInterface
-//     fr: AppContentInterface
-// }
-
 // child elements interface
 interface PageInterface {
     id:string
@@ -30,11 +25,11 @@ interface PageInterface {
 }
 
 // deprecated
-interface ToneOptionInterface {
-    id:number
-    text:string
-    prompt:string
-}
+// interface ToneOptionInterface {
+//     id:number
+//     text:string
+//     prompt:string
+// }
 
 interface PromptSuggestionInterface {
     id:number
@@ -48,10 +43,8 @@ interface SettingItemInterface {
     values:string[] | number[]
 }
 
+// type for the prop of the context itself
 interface AppContentProps{
-    // appContent:AppContentInterface
-    // setAppContent:Dispatch<SetStateAction<AppContentInterface>>
-    // [key:string]:string
     appContent:AppContentInterface
 }
 
@@ -59,9 +52,10 @@ const AppContentContext = createContext<AppContentProps>({appContent:content['en
     
 const AppContentProvider:FC<ContextProviderProps> = ({children}) => {
     
+    // getting the language from the globalContext
     const { language } = useContext(GlobalContext)
 
-    // const [appContent, setAppContent] = useState<AppContentInterface>(content[language])
+    // app content, depending on the value of language (if it's set to french or english)
     const appContent = content[language as keyof typeof content]
 
     return (

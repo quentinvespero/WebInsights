@@ -1,13 +1,8 @@
-import { FC, useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { colorsVariables } from "../../style/variables"
-import { ToneOptionInterface } from "../../interfaces/appContentInterfaces"
 import { ApiContext } from "../context/ApiContextProvider"
-import { GlobalContext } from "../context/ContextProvider"
-
-// interface SummaryComponentProps {
-//     prompt: ToneOptionInterface['prompt']
-// }
+import { PromptContext } from "../context/PromptContextProvider"
 
 const Style = styled.div`
     display:flex;
@@ -19,12 +14,12 @@ const Style = styled.div`
     border:solid .1rem ${colorsVariables.color3_dark};
 `
 
-const {apiKeyState} = useContext(ApiContext)
-
-const {} = useContext(GlobalContext)
-
 // sending the content of the webpage to the API
 const fetchSummary = async (dataToSendToAPI: string): Promise<{ summary: string }> => {
+    
+    const {apiKeyState} = useContext(ApiContext)
+
+    console.log(apiKeyState)
 
     // getting the api key from local storage
     // const { apiKey } = await new Promise<{ apiKey: string }>((resolve) => {
@@ -61,6 +56,16 @@ const SummaryComponent = () => {
 
     const [summary, setSummary] = useState<string>('')
 
+    // getting current promptId from the globalContext
+    // const {promptId} = useContext(GlobalContext)
+
+    // getting the prompt from the AppContent, depending on it's id in promptId form the GlobalContext
+    // const prompt = useContext(AppContentContext).appContent.prompts.promptsSuggestions[promptId].prompt
+
+    const prompt = useContext(PromptContext).promptText
+
+    console.log(prompt)
+
     useEffect(() => {
         if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage.addListener ) {
 
@@ -91,6 +96,7 @@ const SummaryComponent = () => {
         }
         else {
             console.warn('chrome is not available in the current environment')
+            console.log(useContext(ApiContext).apiKeyState)
         }
     }, [])
 
