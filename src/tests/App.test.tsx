@@ -22,7 +22,7 @@ const renderApp = (language = '', apiKeyState = '', route = '/') => {
     // Derive partialApiKey from apiKeyState, as in ApiContextProvider
     const partialApiKey = apiKeyState ? `***${apiKeyState.slice(-5)}` : ''
 
-    // Mocking GlobalContext properties, including setLanguage
+    // GlobalContext properties, including setLanguage
     const globalContextValues = {
         language,
         setLanguage: () => {},
@@ -31,13 +31,17 @@ const renderApp = (language = '', apiKeyState = '', route = '/') => {
         savingSetting: () => {}
     }
 
+    const apiContextValues = {
+        apiKeyState,
+        partialApiKey,
+        settingUpApiKey: () => {},
+        isValidApiKey:() => false,
+        loading:true
+    }
+
     return render(
         <GlobalContext.Provider value={globalContextValues}>
-            <ApiContext.Provider value={{
-                apiKeyState,
-                partialApiKey,
-                settingUpApiKey: () => {}
-            }}>
+            <ApiContext.Provider value={apiContextValues}>
                 <MemoryRouter initialEntries={[route]}>
                     <App />
                 </MemoryRouter>

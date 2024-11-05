@@ -6,7 +6,7 @@ export const useFetchSummary = () => {
 
     // ensure that the provided api key isn't empty
     if (!apiKey || apiKey.length < 5) {
-        throw new Error('----- useFetchSummary.ts ----- : the api key seem shorter than expected')
+        throw new Error('----- useFetchSummary.ts ----- : the api key seem shorter than expected OR non-existent...')
     }
 
     const fetchSummary = async (dataToSendToAPI: string): Promise<{ summary: string }> => {

@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { colorsVariables } from "../../style/variables"
 import { PromptContext } from "../context/PromptContextProvider"
 import { useFetchSummary } from "../../hooks/useFetchSummary"
-import { addChromeListener } from "../../utils/chromeUtils"
+// import { addChromeListener } from "../../utils/chromeUtils"
 import { ApiContext } from "../context/ApiContextProvider"
 
 const Style = styled.div`
@@ -17,40 +17,64 @@ const Style = styled.div`
 `
 
 const SummaryComponent = () => {
+    
+    // ensuring the apikey is valid (by checking its length mostly)
+    const { isValidApiKey, loading } = useContext(ApiContext)
 
     // the summary text to be rendered in the component
     const [summary, setSummary] = useState<string>('')
     
-    // calling useFetchSummary that will make a request to the API
-    const fetchSummaryFromApi = useFetchSummary()
-    
     // prompt that will be used, gathered from PromptContext
     const prompt = useContext(PromptContext).promptText
 
-    // ensuring the apikey is valid (by checking its length mostly)
-    const { isValidApiKey } = useContext(ApiContext)
 
-    // extracting the text of the webpage when NOT in chrome environment
+    // extracting the text of the webpage when NOT in chrome environment (for dev purpose)
     const extractedText = document.body.innerText
 
+    // if (loading) {
+    //     return <div className="loading">loading</div>
+    // }
+    
     useEffect(() => {
-        if (!isValidApiKey()) throw new Error('Invalid or missing API key')
+
+        if (!isValidApiKey()) {
+            // throw new Error('Invalid or missing API key')
+            console.warn('invalid or missing api key')
+            return
+        }
+
+        // calling useFetchSummary that will make a request to the API
+        const fetchSummaryFromApi = useFetchSummary()
 
         const isInChromeEnvironment = typeof chrome !== 'undefined' && chrome.runtime && chrome.storage
 
         if (isInChromeEnvironment){
-            addChromeListener(async (extractedText) => {
-                const dataToSendToAPI = `${prompt} ${extractedText}`
-                const apiDataResponse = await fetchSummaryFromApi(dataToSendToAPI)
-                setSummary(apiDataResponse.summary)
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                chrome.scripting.executeScript(
+                    {
+                        target: { tabId: tabs[0].id! },
+                        func: () => document.body.innerText
+                    },
+                    async (results) => {
+                        const extractedText = results[0].result as string
+                        const dataToSendToAPI = `${prompt} ${extractedText}`
+                        const apiDataResponse = await fetchSummaryFromApi(dataToSendToAPI)
+                        setSummary(apiDataResponse.summary)
+                    }
+                )
             })
+            // addChromeListener(async (extractedText) => {
+            //     const dataToSendToAPI = `${prompt} ${extractedText}`
+            //     const apiDataResponse = await fetchSummaryFromApi(dataToSendToAPI)
+            //     setSummary(apiDataResponse.summary)
+            // })
         }
         else {
             console.log('turlututu----------------------------------')
             const dataToSendToAPI = `${prompt} ${extractedText}`
             fetchSummaryFromApi(dataToSendToAPI).then(response => setSummary(response.summary))
         }
-    }, [fetchSummaryFromApi, prompt, isValidApiKey])
+    }, [prompt, isValidApiKey, loading])
 
     return (
         <Style className="summaryComponent">
