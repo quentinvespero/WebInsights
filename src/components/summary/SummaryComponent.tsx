@@ -19,7 +19,7 @@ const Style = styled.div`
 const SummaryComponent = () => {
     
     // ensuring the apikey is valid (by checking its length mostly)
-    const { isValidApiKey, loading } = useContext(ApiContext)
+    const { isValidApiKey, loading, apiKeyState } = useContext(ApiContext)
 
     // the summary text to be rendered in the component
     const [summary, setSummary] = useState<string>('')
@@ -30,22 +30,16 @@ const SummaryComponent = () => {
     // extracting the text of the webpage when NOT in chrome environment (for dev purpose)
     const extractedText = document.body.innerText
     
+    if (loading) return <div className="loading">loading...</div>
+
     // calling useFetchSummary that will make a request to the API
     const fetchSummaryFromApi = useFetchSummary()
     
-    if (loading) return <div className="loading">loading...</div>
-    
     useEffect(() => {
-
-        if (!isValidApiKey()) {
-            // throw new Error('Invalid or missing API key')
-            console.warn('invalid or missing api key')
-            return
-        }
-
-
+        
+        
         const isInChromeEnvironment = typeof chrome !== 'undefined' && chrome.runtime && chrome.storage
-
+        
         if (isInChromeEnvironment){
             chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                 chrome.scripting.executeScript(
@@ -71,14 +65,22 @@ const SummaryComponent = () => {
             try {
                 console.log('fetching in dev env ----------------------------------')
                 const dataToSendToAPI = `${prompt} ${extractedText}`
-                fetchSummaryFromApi(dataToSendToAPI).then(response => setSummary(response.summary))
+                fetchSummaryFromApi(dataToSendToAPI)
+                .then(response => setSummary(response.summary))
+                .catch(error => console.error('failed to fetch summary', error))
             }
             catch (error) {
                 console.error('failed to fetch summary', error)
             }
         }
-    }, [prompt, isValidApiKey, loading])
-
+    }, [prompt, isValidApiKey, loading, apiKeyState, fetchSummaryFromApi])
+    
+    if (loading || !isValidApiKey()) {
+        // throw new Error('Invalid or missing API key')
+        console.warn('invalid or missing api key')
+        return
+    }
+    
     return (
         <Style className="summaryComponent">
             <p>{summary}</p>
