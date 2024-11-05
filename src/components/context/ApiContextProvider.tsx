@@ -72,8 +72,6 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
     // loading the apiKey from the chrome local storage
     useEffect(() => {
         if (apiKeyState === '' && chrome?.storage?.local){
-            // if (chrome !== undefined && chrome.storage && chrome.storage.local){
-            // }
             chrome.storage.local.get(['apiKey'], (result) => {
                 if (result.apiKey) {
                     setApiKeyState(result.apiKey)
@@ -82,9 +80,7 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
                 setLoading(false)
             })
         }
-        else {
-            setLoading(false)
-        }
+        else setLoading(false) // directly set it up to false because no need to get the key from the chrome storage
     }, [])
 
     return (

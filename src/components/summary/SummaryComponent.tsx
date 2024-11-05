@@ -29,13 +29,11 @@ const SummaryComponent = () => {
 
     // extracting the text of the webpage when NOT in chrome environment (for dev purpose)
     const extractedText = document.body.innerText
-
-    // if (loading) {
-    //     return <div className="loading">loading</div>
-    // }
     
     // calling useFetchSummary that will make a request to the API
     const fetchSummaryFromApi = useFetchSummary()
+    
+    if (loading) return <div className="loading">loading...</div>
     
     useEffect(() => {
 
@@ -56,23 +54,28 @@ const SummaryComponent = () => {
                         func: () => document.body.innerText
                     },
                     async (results) => {
-                        const extractedText = results[0].result as string
-                        const dataToSendToAPI = `${prompt} ${extractedText}`
-                        const apiDataResponse = await fetchSummaryFromApi(dataToSendToAPI)
-                        setSummary(apiDataResponse.summary)
+                        try {
+                            const extractedText = results[0].result as string
+                            const dataToSendToAPI = `${prompt} ${extractedText}`
+                            const apiDataResponse = await fetchSummaryFromApi(dataToSendToAPI)
+                            setSummary(apiDataResponse.summary)
+                        }
+                        catch (error) {
+                            console.error('failed to fetch summary', error)
+                        }
                     }
                 )
             })
-            // addChromeListener(async (extractedText) => {
-            //     const dataToSendToAPI = `${prompt} ${extractedText}`
-            //     const apiDataResponse = await fetchSummaryFromApi(dataToSendToAPI)
-            //     setSummary(apiDataResponse.summary)
-            // })
         }
         else {
-            console.log('turlututu----------------------------------')
-            const dataToSendToAPI = `${prompt} ${extractedText}`
-            fetchSummaryFromApi(dataToSendToAPI).then(response => setSummary(response.summary))
+            try {
+                console.log('fetching in dev env ----------------------------------')
+                const dataToSendToAPI = `${prompt} ${extractedText}`
+                fetchSummaryFromApi(dataToSendToAPI).then(response => setSummary(response.summary))
+            }
+            catch (error) {
+                console.error('failed to fetch summary', error)
+            }
         }
     }, [prompt, isValidApiKey, loading])
 
