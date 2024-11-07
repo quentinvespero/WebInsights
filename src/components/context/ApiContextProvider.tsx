@@ -10,7 +10,7 @@ interface ApiKeyProps {
     partialApiKey:string
     settingUpApiKey:(apiKey:string, callback:()=> void) => void
     isValidApiKey: () => boolean,
-    loading:boolean
+    loadingApiKey:boolean
 }
 
 // creating the context, giving it the types for the useStates
@@ -21,7 +21,7 @@ const ApiContext = createContext<ApiKeyProps>({
     partialApiKey:'',
     settingUpApiKey:() => {},
     isValidApiKey: () => false,
-    loading:true
+    loadingApiKey:true
 })
 
 const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
@@ -30,7 +30,7 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
     const [apiKeyState, setApiKeyState] = useState<string>('')
 
     // state for keeping track of whether the api key is being load or not
-    const [loading, setLoading] = useState<boolean>(true)
+    const [loadingApiKey, setLoadingApiKey] = useState<boolean>(true)
 
     // part of the api key, to avoid having to provide the whole key
     let partialApiKey:string = '***' + apiKeyState.slice(-5)
@@ -77,15 +77,15 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
                     setApiKeyState(result.apiKey)
                     console.log('----- ApiContextProvider.tsx -----','an api key have been restored from chrome storage')
                 }
-                setLoading(false)
+                setLoadingApiKey(false)
             })
         }
-        else setLoading(false) // directly set it up to false because no need to get the key from the chrome storage
+        else setLoadingApiKey(false) // directly set it up to false because no need to get the key from the chrome storage
     }, [])
 
     return (
         // using the context previously created, passing the values that we want to use in this context
-        <ApiContext.Provider value={{partialApiKey,settingUpApiKey, apiKeyState, isValidApiKey, loading}}>
+        <ApiContext.Provider value={{partialApiKey,settingUpApiKey, apiKeyState, isValidApiKey, loadingApiKey}}>
             {children}
         </ApiContext.Provider>
     )

@@ -36,7 +36,7 @@ const renderApp = (language = '', apiKeyState = '', route = '/') => {
         partialApiKey,
         settingUpApiKey: () => {},
         isValidApiKey:() => false,
-        loading:true
+        loadingApiKey:true
     }
 
     return render(
