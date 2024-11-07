@@ -9,7 +9,7 @@ const FallbackError = () => {
             display:'flex',
             alignSelf:'center',
             padding:'.5rem 2rem',
-            borderRadius:'5rem',
+            borderRadius:'.5rem',
             margin:'2rem',
             transition:'.15s',
             placeSelf:'center',

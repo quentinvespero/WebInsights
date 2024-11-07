@@ -9,7 +9,7 @@ const FallbackLoading = () => {
             display:'flex',
             alignSelf:'center',
             padding:'.5rem 2rem',
-            borderRadius:'5rem',
+            borderRadius:'.5rem',
             margin:'2rem 0rem',
             transition:'.15s'
         }
