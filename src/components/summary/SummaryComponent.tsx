@@ -4,6 +4,7 @@ import { colorsVariables } from "../../style/variables"
 import { PromptContext } from "../context/PromptContextProvider"
 import { fetchSummary } from "../../hooks/useFetchSummary"
 import { ApiContext } from "../context/ApiContextProvider"
+import ReactMarkdown from 'react-markdown'
 
 const Style = styled.div`
     display:flex;
@@ -67,15 +68,6 @@ const SummaryComponent = () => {
                             extractedText = results?.[0]?.result || ''
                             fetchAndSetSummary(extractedText)
                         }
-                        // async (results) => {
-                        //     try {
-                        //         // dataToSendToAPI = `${prompt} ${results[0].result as string}`
-                        //         extractedText = results[0].result
-                        //     }
-                        //     catch (error) {
-                        //         console.error('----- SummaryComponent.tsx -----','failed to fetch summary', error)
-                        //     }
-                        // }
                     )
                 })
             }
@@ -88,9 +80,6 @@ const SummaryComponent = () => {
                 fetchAndSetSummary(extractedText)
             }
 
-            // fetchSummary(apiKeyState,dataToSendToAPI)
-            //     .then(apiResponse => setSummary(apiResponse.summary))
-            //     .catch(error => console.error('failed to fetch summary', error))
         }
         else console.warn('----- SummaryComponent.tsx -----', 'API key seem unvalid or missing')
 
@@ -105,7 +94,7 @@ const SummaryComponent = () => {
         <Style className="summaryComponent">
             {!loadingApiKey
                 ?
-                <p>{summary}</p>
+                <ReactMarkdown>{summary}</ReactMarkdown>
                 :
                 <p>loading...</p>
             }
