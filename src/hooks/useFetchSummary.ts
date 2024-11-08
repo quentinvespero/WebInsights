@@ -39,7 +39,7 @@ export const useFetchSummary = () => {
 export const fetchSummary = async (apiKey:string, dataToSendToAPI: string): Promise<{ summary: string }> => {
 
     console.log('----- useFetchSummary -----','performing API request..')
-    // console.log('----- useFetchSummary -----','datatosendtoapi :',dataToSendToAPI.slice(0,400))
+    console.log('----- useFetchSummary -----','datatosendtoapi :',dataToSendToAPI.slice(0,700))
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',

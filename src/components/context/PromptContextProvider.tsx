@@ -22,6 +22,8 @@ const PromptProvider: FC<ContextProviderProps> =  ({children}) => {
 
     const basePrompt = appContent.prompts.basePrompt
 
+    const endPrompt = 'Here is the webpage :'
+
     const {promptId,setPromptId} = useContext(GlobalContext)
 
     if (appContent === undefined || promptId === undefined || setPromptId === undefined){
@@ -35,7 +37,7 @@ const PromptProvider: FC<ContextProviderProps> =  ({children}) => {
     // the prompt that will be used, with the base prompt, that set up the key points of the instructions, 
     // followed by the "tone" selected in the app, that is more about the tone used to provide the answer
     // const promptText = basePrompt + ' ' + appContent?.prompts?.promptsSuggestions?.[promptId]?.prompt
-    const promptText = basePrompt + ' ' + appContent?.prompts?.promptsSuggestions?.[promptId]?.prompt
+    const promptText = basePrompt + ' ' + appContent?.prompts?.promptsSuggestions?.[promptId]?.prompt + endPrompt
 
     // console.log('-------- prompt context :',promptText)
 

@@ -44,7 +44,7 @@ const SummaryComponent = () => {
             setIsSummaryLoading(true)
             
             try {
-                console.log('----- SummaryComponent.tsx -----', prompt)
+                // console.log('----- SummaryComponent.tsx -----', prompt)
                 const apiResponse = await fetchSummary(apiKeyState, `${prompt} ${extractedText}`)
                 setSummary(apiResponse.summary)
             }
