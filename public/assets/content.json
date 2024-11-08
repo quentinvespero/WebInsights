@@ -7,30 +7,31 @@
         ],
         "prompts":{
             "text":"Suggested tones (prompts)",
+            "basePrompt":"Here's a webpage for you to summarise in 3 main key points, in the form of a bullet points. Keep the summary under 500 characters at the maximum. Don't say or provide anything else than the key points of the webpage. Use bold to highlight the key words within the summary. Use markdown. Provide the summary in the language of the webpage.",
             "promptsSuggestions":[
-                { 
+                {
                     "id": 0, 
                     "text": "Neutral", 
                     "description":"Neutral, factual tone",
-                    "prompt":"Professional - Here is a webpage for you to summarise in 3 points, using a few words :" 
+                    "prompt":"Use a neutral tone" 
                 },
-                { 
+                {
                     "id": 1, 
                     "text": "Casual", 
                     "description":"A friendly tone, as if it was a friend of you",
-                    "prompt":"casual - Here is a webpage for you to summarise in 3 points, using a few words :" 
+                    "prompt":"Talk to me like if I was a very good friend" 
                 },
-                { 
+                {
                     "id": 2, 
                     "text": "Emoji", 
                     "description":"A summary using only emojis",
-                    "prompt":"friendly - Here is a webpage for you to summarise in 3 points, using a few words :"
+                    "prompt":"You have to reply using emojis only"
                 },
                 { 
                     "id": 3, 
                     "text": "Explain like I'm five", 
                     "description":"A summary that uses simple terms",
-                    "prompt":"personal prompt - Here is a webpage for you to summarise in 3 points, using a few words :"
+                    "prompt":"Use simple terms in your summary as if I was a child"
                 }
             ]
         },
@@ -102,6 +103,7 @@
         ],
         "prompts":{
             "text":"Suggested tones (prompts)",
+            "basePrompt":"Here's a webpage for you to summarise in 3 main key points, in the form of a bullet points. Keep the summary under 500 characters at the maximum. Don't say or provide anything else than the key points of the webpage. Use bold to highlight the key words within the summary. Use markdown. Provide the summary in the language of the webpage.",
             "promptsSuggestions":[
                 { 
                     "id": 0, 

@@ -20,17 +20,22 @@ const PromptProvider: FC<ContextProviderProps> =  ({children}) => {
 
     const {appContent} = useContext(AppContentContext)
 
+    const basePrompt = appContent.prompts.basePrompt
+
     const {promptId,setPromptId} = useContext(GlobalContext)
 
     if (appContent === undefined || promptId === undefined || setPromptId === undefined){
-        console.warn('appContent or global contexts seem not accessible..')
+        console.warn('----- PromptContextProvider.tsx -----','appContent or global contexts seem not accessible..')
         return null
     }
 
     // keeping track of the selected prompt based on its ID
     // const [promptId, setPromptId] = useState<PromptsProps['promptId']>(0)
 
-    const promptText = appContent?.prompts?.promptsSuggestions?.[promptId]?.prompt || 'turlututu'
+    // the prompt that will be used, with the base prompt, that set up the key points of the instructions, 
+    // followed by the "tone" selected in the app, that is more about the tone used to provide the answer
+    // const promptText = basePrompt + ' ' + appContent?.prompts?.promptsSuggestions?.[promptId]?.prompt
+    const promptText = basePrompt + ' ' + appContent?.prompts?.promptsSuggestions?.[promptId]?.prompt
 
     // console.log('-------- prompt context :',promptText)
 

@@ -44,12 +44,12 @@ const SummaryComponent = () => {
             setIsSummaryLoading(true)
             
             try {
-                // console.log('----- SummaryComponent.tsx -----', extractedText)
+                console.log('----- SummaryComponent.tsx -----', prompt)
                 const apiResponse = await fetchSummary(apiKeyState, `${prompt} ${extractedText}`)
                 setSummary(apiResponse.summary)
             }
             catch (error) {
-                console.error('Failed to fetch summary:', error)
+                console.error('----- SummaryComponent.tsx -----','Failed to fetch summary:', error)
             }
             finally {
                 setIsSummaryLoading(false)

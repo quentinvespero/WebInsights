@@ -9,6 +9,7 @@ interface AppContentInterface {
     
     prompts: {
         text: string
+        basePrompt:string
         promptsSuggestions:PromptSuggestionInterface[]
     }
     settings: SettingItemInterface[]
