@@ -13,6 +13,7 @@ interface AppContentInterface {
         promptsSuggestions:PromptSuggestionInterface[]
     }
     settings: SettingItemInterface[]
+    settingsV2:SettingV2ItemInterface[]
     popupMessages:{
         [key:string]:string
     }
@@ -25,12 +26,17 @@ interface PageInterface {
     icon:string
 }
 
-// deprecated
-// interface ToneOptionInterface {
-//     id:number
-//     text:string
-//     prompt:string
-// }
+export interface SettingV2ItemInterface {
+    id:string
+    text:string
+    values: SettingV2ItemValueInterface[]
+}
+
+export interface SettingV2ItemValueInterface {
+    id:number
+    text:string
+    value:string
+}
 
 interface PromptSuggestionInterface {
     id:number

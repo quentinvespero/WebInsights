@@ -7,13 +7,13 @@ import { ApiContext } from "../context/ApiContextProvider"
 import ReactMarkdown from 'react-markdown'
 
 const Style = styled.div`
-    display:flex;
+    /* display:flex;
     flex-direction:column;
     padding:1rem;
     background:${colorsVariables.color4};
     border-radius:.5rem;
     box-shadow:0 0 .3rem ${colorsVariables.color4};
-    border:solid .1rem ${colorsVariables.color3_dark};
+    border:solid .1rem ${colorsVariables.color3_dark}; */
 `
 
 const SummaryComponent = () => {

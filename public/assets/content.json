@@ -23,7 +23,7 @@
                 },
                 {
                     "id": 2, 
-                    "text": "Emoji", 
+                    "text": "Emojis", 
                     "description":"A summary using only emojis",
                     "prompt":"You have to reply using emojis only."
                 },
@@ -76,7 +76,11 @@
                 "id": "defaultPrompt",
                 "text": "Default tones",
                 "values": [
-                    {"id":0, "text":"Professional","value":""}
+                    {"id":0, "text":"Neutral","value":""},
+                    {"id":1, "text":"Casual","value":""},
+                    {"id":2, "text":"Emojis","value":""},
+                    {"id":3, "text":"Explain like I'm five","value":""},
+                    {"id":4, "text":"Straight to the point","value":""}
                 ]
             },
             {

@@ -37,10 +37,10 @@ const PageComponent:FC<PageComponentProps & AppContentProps> = ({ appContent, pa
 
             <h1>{page.text}</h1>
 
-            {page.id === 'summary' && <SummaryPage appContent={appContent}/>}
+            {page.id === 'summary' && <SummaryPage/>}
             
             {/* {page.id === 'translations'} */}
-            {page.id === 'settings' && <SettingsPage appContent={appContent} />}
+            {page.id === 'settings' && <SettingsPage/>}
             
         </Style>
     )
