@@ -1,14 +1,14 @@
-import { FC, useState } from 'react'
+import { FC, useContext, useState } from 'react'
 import CheckableButton from '../CheckableButton'
-import useAppContext from '../context/useAppContext'
 import { GlobalContext } from '../context/ContextProvider'
 import { SettingItemInterface } from '../../interfaces/appContentInterfaces'
 import styled from 'styled-components'
 import SettingItemApiSection from './SettingItemApiSection'
 import { SettingV2ItemValueInterface } from '../context/AppContentContextProvider'
+import { PromptContext } from '../context/PromptContextProvider'
+import { colorsVariables } from '../../style/variables'
 
 interface SettingItemValueProps{
-    settingItemValue:string|number
     parentSettingItemId:SettingItemInterface['id']
     settingV2ItemValue:SettingV2ItemValueInterface
 }
@@ -18,24 +18,34 @@ const Style = styled.div`
     flex-direction:column;
     row-gap:1.5rem;
     align-items:flex-start;
+
+    .settingItemValue-selected{
+        background:${colorsVariables.color4}
+    }
 `
 
-const SettingItemValue:FC<SettingItemValueProps> = ({settingItemValue,parentSettingItemId, settingV2ItemValue}) => {
+const SettingItemValue:FC<SettingItemValueProps> = ({parentSettingItemId, settingV2ItemValue}) => {
 
     // consuming the global context
-    const {language, promptId, savingSetting} = useAppContext(GlobalContext)
+    const {savingSettingV2,languageV2 } = useContext(GlobalContext)
+
+    const {promptId} = useContext(PromptContext)
 
     // keeping track of whether the input menu (to enter the api key) is visible or not
     const [showInputElement, setShowInputElement] = useState<boolean>(false)
 
+    const [isSettingItemValueSelected, setIsSettingItemValueSelected] = useState<boolean>(false)
+    
     // a range of actions to perform, depending on the type of setting
-    const onClickActions = (parentSettingItemId:string, settingItemValue:string|number) => {
+    // for settingsV2
+    const onClickActions = (parentSettingItemId:string) => {
         
         switch (parentSettingItemId) {
             
-            case 'language': savingSetting(parentSettingItemId,settingItemValue) // saving setting in chrome's storage
+            case 'language': 
+                savingSettingV2(parentSettingItemId,settingV2ItemValue, () => setIsSettingItemValueSelected(true))
                 break
-            case 'defaultPrompt': savingSetting(parentSettingItemId,settingItemValue)
+            case 'defaultPrompt': savingSettingV2(parentSettingItemId,settingV2ItemValue, () => setIsSettingItemValueSelected(true))
                 break
             case 'personalPrompts':
                 break
@@ -46,11 +56,24 @@ const SettingItemValue:FC<SettingItemValueProps> = ({settingItemValue,parentSett
         }
     }
 
+    const isSettingSelected = () => {
+        switch (parentSettingItemId) {
+            case '':
+                
+                break;
+        
+            default:
+                break;
+        }
+    }
+
     return (
         <Style className="settingItemValue">
-            <div className="button" onClick={() => onClickActions(parentSettingItemId,settingItemValue)}>
-                <CheckableButton selected={settingItemValue === language || settingItemValue === promptId}>
-                    {settingItemValue}
+            <div className="button" onClick={() => onClickActions(parentSettingItemId)}>
+
+                {/* have to improve the way it get selected value below */}
+                <CheckableButton selected={isSettingItemValueSelected}>
+                    {settingV2ItemValue.text}
                 </CheckableButton>
             </div>
             
