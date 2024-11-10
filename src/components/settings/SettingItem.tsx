@@ -1,10 +1,11 @@
-import { FC } from "react"
-import SettingItemValue from "./SettingItemValue"
-import { SettingV2ItemInterface } from "../context/AppContentContextProvider"
+import { FC, useContext, useState } from "react"
+import { AppContentContext, SettingV2ItemInterface } from "../context/AppContentContextProvider"
 import styled from "styled-components"
+import SettingItemApiSection from "./SettingItemApiSection"
+import { GlobalContext } from "../context/ContextProvider"
+import { PromptContext } from "../context/PromptContextProvider"
 
 interface SettingItemProps {
-    // settingItem:SettingItemInterface
     settingV2Item:SettingV2ItemInterface
 }
 
@@ -14,25 +15,63 @@ const Style = styled.div`
     row-gap:.5rem;
 
     .settingItemValues{
-        flex-direction:row;
+        flex-direction:column;
+        align-items:flex-start;
         display:flex;
-        column-gap:.8rem;
+        row-gap:.8rem;
     }
 `
 
 const SettingItem:FC<SettingItemProps> = ({settingV2Item}) => {
+
+    const [showInputElement, setShowInputElement] = useState<boolean>(false)
+
+    // function to save the setting in both react state and chrome storage if available
+    const {savingSettingV2} = useContext(GlobalContext)
+
+    const {promptId} = useContext(PromptContext)
+    const {languageV2} = useContext(AppContentContext)
+
+    // using the values of promptId and languageV2 as default value for the select
+    const selectedSetting = settingV2Item.id === 'language' ? languageV2 : promptId
+
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedValueId = Number(event.target.value)
+        const selectedValue = settingV2Item.values.find(value => value.id === selectedValueId)
+
+        if (selectedValue) {
+            savingSettingV2(settingV2Item.id, selectedValue.id)
+            console.log('----- SettingItem - handleSelectChange - sending values to be saved : -----',settingV2Item.id,selectedValue.id)
+        }
+    }
+
     return (
         <Style className="settingItem">
-            {/* <h4>{settingItem.text}</h4> */}
             <h4>{settingV2Item.text}</h4>
             
             <div className="settingItemValues">
-                {/* {settingItem.values.map((settingItemValue, index) => (
-                    <SettingItemValue key={index} settingItemValue={settingItemValue} parentSettingItemId={settingItem.id}/>
-                ))} */}
-                {settingV2Item.values.map((settingV2ItemValue, index) => (
-                    <SettingItemValue key={index} settingV2ItemValue={settingV2ItemValue} parentSettingItemId={settingV2Item.id}/>
-                ))}
+
+                {/* below, render depending on the type of the setting (if it's a selector or button) */}
+                {settingV2Item.type === 'selector'
+                    
+                    ?
+                    
+                    <select className="settingItemValues-selector" onChange={handleSelectChange} value={selectedSetting}>
+                        {settingV2Item.values.map((settingV2ItemValue) => (
+                            <option key={settingV2ItemValue.id} value={settingV2ItemValue.id}>{settingV2ItemValue.text}</option>
+                        ))}
+                    </select>
+
+                    : // for the 2nd type of settings, "button"
+                    
+                    settingV2Item.values.map((settingV2ItemValue) => (
+                        // <SettingItemValue key={settingV2ItemValue.id} settingV2ItemValue={settingV2ItemValue} parentSettingItemId={settingV2Item.id}/>
+                        <button key={settingV2ItemValue.id} onClick={() => setShowInputElement(!showInputElement)}>{settingV2ItemValue.text}</button>
+                    ))
+                }
+
+                {settingV2Item.id === 'apiKey' && showInputElement && <SettingItemApiSection/>}
+
             </div>
         </Style>
     )

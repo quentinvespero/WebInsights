@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { ButtonType1 } from "../../style/styledComponents"
 import useAppContext from "../context/useAppContext"
 import { ApiContext } from "../context/ApiContextProvider"
 import styled from "styled-components"
@@ -20,12 +19,12 @@ const Style = styled.div`
             border: .15rem solid grey;
             
         }
-        & button{
+        /* & button{
             padding: .3rem 1rem;
             border-radius: 3rem;
             border: .15rem solid grey;
             cursor:pointer;
-        }
+        } */
     }
     & > .popup{
         font-weight:700;
@@ -71,7 +70,8 @@ const SettingItemApiSection = () => {
                     onChange={(e) => { setNewApiKey(e.target.value) }}
                     placeholder="Enter API Key"
                 />
-                <ButtonType1 onClick={() => handlingApiKeySaving()}>{'save'}</ButtonType1>
+                {/* <ButtonType1 onClick={() => handlingApiKeySaving()}>{'save'}</ButtonType1> */}
+                <button onClick={() => handlingApiKeySaving()}>{'save'}</button>
             </div>
 
             {isKeySaved && <p className="popup">{'api key saved :)'}</p>}

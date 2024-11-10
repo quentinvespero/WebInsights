@@ -17,15 +17,15 @@ createRoot(document.getElementById('root')!).render(
         <ErrorBoundary fallback={<FallbackError/>}>
             <Suspense fallback={<FallbackLoading/>}>
                 <HashRouter>
-                    <ContextProvider>
-                        <ApiContextProvider>
-                            <AppContentProvider>
-                                <PromptProvider>
+                    <AppContentProvider>
+                        <PromptProvider>
+                            <ApiContextProvider>
+                                <ContextProvider>
                                     <App/>
-                                </PromptProvider>
-                            </AppContentProvider>
-                        </ApiContextProvider>
-                    </ContextProvider>
+                                </ContextProvider>
+                            </ApiContextProvider>
+                        </PromptProvider>
+                    </AppContentProvider>
                 </HashRouter>
             </Suspense>
         </ErrorBoundary>

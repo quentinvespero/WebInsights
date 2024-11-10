@@ -1,11 +1,9 @@
 import { FC, useContext, useState } from 'react'
-import CheckableButton from '../CheckableButton'
 import { GlobalContext } from '../context/ContextProvider'
 import { SettingItemInterface } from '../../interfaces/appContentInterfaces'
 import styled from 'styled-components'
 import SettingItemApiSection from './SettingItemApiSection'
 import { SettingV2ItemValueInterface } from '../context/AppContentContextProvider'
-import { PromptContext } from '../context/PromptContextProvider'
 import { colorsVariables } from '../../style/variables'
 
 interface SettingItemValueProps{
@@ -27,14 +25,14 @@ const Style = styled.div`
 const SettingItemValue:FC<SettingItemValueProps> = ({parentSettingItemId, settingV2ItemValue}) => {
 
     // consuming the global context
-    const {savingSettingV2,languageV2 } = useContext(GlobalContext)
+    const {savingSettingV2 } = useContext(GlobalContext)
 
-    const {promptId} = useContext(PromptContext)
+    // const {promptId} = useContext(PromptContext)
 
     // keeping track of whether the input menu (to enter the api key) is visible or not
     const [showInputElement, setShowInputElement] = useState<boolean>(false)
 
-    const [isSettingItemValueSelected, setIsSettingItemValueSelected] = useState<boolean>(false)
+    // const [isSettingItemValueSelected, setIsSettingItemValueSelected] = useState<boolean>(false)
     
     // a range of actions to perform, depending on the type of setting
     // for settingsV2
@@ -42,10 +40,9 @@ const SettingItemValue:FC<SettingItemValueProps> = ({parentSettingItemId, settin
         
         switch (parentSettingItemId) {
             
-            case 'language': 
-                savingSettingV2(parentSettingItemId,settingV2ItemValue, () => setIsSettingItemValueSelected(true))
+            case 'language': savingSettingV2(parentSettingItemId,settingV2ItemValue.id)
                 break
-            case 'defaultPrompt': savingSettingV2(parentSettingItemId,settingV2ItemValue, () => setIsSettingItemValueSelected(true))
+            case 'defaultPrompt': savingSettingV2(parentSettingItemId,settingV2ItemValue.id)
                 break
             case 'personalPrompts':
                 break
@@ -56,25 +53,15 @@ const SettingItemValue:FC<SettingItemValueProps> = ({parentSettingItemId, settin
         }
     }
 
-    const isSettingSelected = () => {
-        switch (parentSettingItemId) {
-            case '':
-                
-                break;
-        
-            default:
-                break;
-        }
-    }
-
     return (
         <Style className="settingItemValue">
             <div className="button" onClick={() => onClickActions(parentSettingItemId)}>
 
                 {/* have to improve the way it get selected value below */}
-                <CheckableButton selected={isSettingItemValueSelected}>
+                {/* <CheckableButton selected={true}>
                     {settingV2ItemValue.text}
-                </CheckableButton>
+                </CheckableButton> */}
+                
             </div>
             
             {parentSettingItemId === 'apiKey' && showInputElement && <SettingItemApiSection/>}

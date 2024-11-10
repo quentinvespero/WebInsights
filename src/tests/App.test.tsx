@@ -28,7 +28,10 @@ const renderApp = (language = '', apiKeyState = '', route = '/') => {
         setLanguage: () => {},
         promptId: 0,
         setPromptId: () => 0,
-        savingSetting: () => {}
+        savingSetting: () => {},
+        savingSettingV2: () => {},
+        languageV2: 0,
+        setLanguageV2: () => {}
     }
 
     const apiContextValues = {

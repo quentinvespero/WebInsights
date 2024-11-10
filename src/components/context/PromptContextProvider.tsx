@@ -1,4 +1,4 @@
-import { createContext, Dispatch, FC, SetStateAction, useContext, useState } from "react"
+import { createContext, Dispatch, FC, SetStateAction, useContext, useEffect, useState } from "react"
 import { ContextProviderProps } from "../../interfaces/globalProps"
 import { AppContentContext } from "./AppContentContextProvider"
 import { PromptSuggestionInterface } from "../../interfaces/appContentInterfaces"
@@ -33,6 +33,20 @@ const PromptProvider: FC<ContextProviderProps> =  ({children}) => {
         return null
     }
 
+    // retrieving a possibly stored setting for language or prompt
+    useEffect(() => {
+
+        // checking whether chrome object is accessible or not
+        if (typeof chrome !== 'undefined' && chrome.storage) {
+            chrome.storage.sync.get(['defaultPrompt'], (result) => {
+                if (result.defaultPrompt) {
+                    setPromptId(result.defaultPrompt)
+                    console.log('----- PromptContextProvider.tsx -----','a default prompt has been restored from chrome storage')
+                }
+            })
+        }
+        // else console.warn('chrome.storage is not available in the current environment')
+    }, [])
 
     // the prompt that will be used, with the base prompt, that set up the key points of the instructions, 
     // followed by the "tone" selected in the app, that is more about the tone used to provide the answer

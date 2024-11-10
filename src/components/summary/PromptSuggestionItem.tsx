@@ -1,11 +1,10 @@
-import { FC } from "react"
-import useAppContext from "../context/useAppContext"
-import { GlobalContext } from "../context/ContextProvider"
+import { FC, useContext } from "react"
 import CheckableButton from "../CheckableButton"
 import ButtonWithIcon from "../ButtonWithIcon"
 import { PromptSuggestionInterface } from "../../interfaces/appContentInterfaces"
 import styled from "styled-components"
 import { colorsVariables } from "../../style/variables"
+import { PromptContext } from "../context/PromptContextProvider"
 
 interface PromptSuggestionItemProps {
     promptSuggestionItem:PromptSuggestionInterface
@@ -33,7 +32,7 @@ const Style = styled.div`
 
 const PromptSuggestionItem:FC<PromptSuggestionItemProps> = ({promptSuggestionItem}) => {
 
-    const {promptId, setPromptId} = useAppContext(GlobalContext)
+    const {promptId, setPromptId} = useContext(PromptContext)
 
     return (
         <Style className="promptSuggestionItem" onClick={() => setPromptId(promptSuggestionItem.id)}>
