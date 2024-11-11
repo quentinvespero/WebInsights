@@ -23,7 +23,7 @@
                 },
                 {
                     "id": 2, 
-                    "text": "Emoji", 
+                    "text": "Emojis", 
                     "description":"A summary using only emojis",
                     "prompt":"You have to reply using emojis only."
                 },
@@ -44,7 +44,7 @@
         "settings": [
             {
                 "id": "language",
-                "text": "Languages of the extension (english, french)",
+                "text": "Languages of the extension",
                 "values": ["en", "fr"]
             },
             {
@@ -60,13 +60,14 @@
             {
                 "id": "apiKey",
                 "text": "Your API key (if you want to use an other LLM than the local)",
-                "values": ["enter your API key here"]
+                "values": ["Enter your API key here"]
             }
         ],
         "settingsV2": [
             {
                 "id": "language",
-                "text": "Languages of the extension (english, french)",
+                "text": "Languages of the extension",
+                "type":"selector",
                 "values": [
                     {"id":0, "text":"English","value":"en"},
                     {"id":1, "text":"French","value":"fr"}
@@ -75,13 +76,19 @@
             {
                 "id": "defaultPrompt",
                 "text": "Default tones",
+                "type":"selector",
                 "values": [
-                    {"id":0, "text":"Professional","value":""}
+                    {"id":0, "text":"Neutral","value":""},
+                    {"id":1, "text":"Casual","value":""},
+                    {"id":2, "text":"Emojis","value":""},
+                    {"id":3, "text":"Explain like I'm five","value":""},
+                    {"id":4, "text":"Straight to the point","value":""}
                 ]
             },
             {
                 "id": "personalPrompts",
                 "text": "Personal Prompt",
+                "type":"selector",
                 "values": [
                     {"id":0, "text":"Prompt1","value":"Here is a webpage for you to summarise in 3 points, using a few words"},
                     {"id":1, "text":"Prompt2","value":"Here is a webpage for you to summarise in 3 points, using a few words"}
@@ -90,14 +97,16 @@
             {
                 "id": "apiKey",
                 "text": "Your API key (if you want to use an other LLM than the local)",
+                "type":"button",
                 "values": [
-                    {"id":0, "text":"enter your API key here","value":""}
+                    {"id":0, "text":"Enter your API key here","value":""}
                 ]
             }
         ],
         "popupMessages":{
             "apiKeyEmpty":"have you entered your API key in the settings ?",
             "apiKeySaved":"api Key saved :)",
+            "apiKeySeemTooShort":"Have you entered the api key ? 🤔 It seems pretty short to say the least....",
             "notInChromeEnv":"not in chrome env it seems"
         }
     },
@@ -156,13 +165,14 @@
             {
                 "id": "apiKey",
                 "text": "Your API key (if you want to use an other LLM than the local)",
-                "values": ["enter your API key here"]
+                "values": ["Enter your API key here"]
             }
         ],
         "settingsV2": [
             {
                 "id": "language",
                 "text": "Languages of the extension (english, french)",
+                "type":"selector",
                 "values": [
                     {"id":0, "text":"English","value":"en"},
                     {"id":1, "text":"French","value":"fr"}
@@ -171,6 +181,7 @@
             {
                 "id": "defaultPrompt",
                 "text": "Default tones",
+                "type":"selector",
                 "values": [
                     {"id":0, "text":"Professional","value":""}
                 ]
@@ -178,6 +189,7 @@
             {
                 "id": "personalPrompts",
                 "text": "Personal Prompt",
+                "type":"selector",
                 "values": [
                     {"id":0, "text":"Prompt1","value":"Here is a webpage for you to summarise in 3 points, using a few words"},
                     {"id":1, "text":"Prompt2","value":"Here is a webpage for you to summarise in 3 points, using a few words"}
@@ -186,8 +198,9 @@
             {
                 "id": "apiKey",
                 "text": "Your API key (if you want to use an other LLM than the local)",
+                "type":"button",
                 "values": [
-                    {"id":0, "text":"enter your API key here","value":""}
+                    {"id":0, "text":"Enter your API key here","value":""}
                 ]
             }
         ],
