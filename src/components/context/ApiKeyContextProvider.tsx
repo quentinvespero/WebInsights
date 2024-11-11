@@ -1,10 +1,6 @@
 import { createContext, FC, useEffect, useState } from "react"
 import { ContextProviderProps } from "../../interfaces/globalProps"
 
-// interface ContextProviderProps {
-//     children:ReactNode
-// }
-
 interface ApiKeyProps {
     apiKeyState:string
     partialApiKey:string
@@ -15,8 +11,7 @@ interface ApiKeyProps {
 
 // creating the context, giving it the types for the useStates
 // leaving the default value undefined because it will be given afterward by the default values of the useState below
-// const ApiContext = createContext<ApiKeyProps | undefined>(undefined)
-const ApiContext = createContext<ApiKeyProps>({
+const ApiKeyContext = createContext<ApiKeyProps>({
     apiKeyState:'',
     partialApiKey:'',
     settingUpApiKey:() => {},
@@ -24,7 +19,7 @@ const ApiContext = createContext<ApiKeyProps>({
     loadingApiKey:true
 })
 
-const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
+const ApiKeyContextProvider: FC<ContextProviderProps> = ({ children }) => {
 
     // keeping track of the API key
     const [apiKeyState, setApiKeyState] = useState<string>('')
@@ -45,7 +40,7 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
     const settingUpApiKey = (apiKey: string, callback:() => void):void => {
         
         if (!isValidApiKey(apiKey)) {
-            console.error('----- ApiContextProvider.tsx -----','Invalid API key format')
+            console.error('----- ApiKeyContextProvider.tsx -----','Invalid API key format')
             return
         }
 
@@ -53,7 +48,6 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
 
         // console.log('saving key in state :',apiKey)
 
-        // if (chrome !== undefined && chrome.storage && chrome.storage.local && chrome.runtime){
         if (chrome?.storage?.local){
             chrome.storage.local.set(
                 { apiKey: apiKey }, 
@@ -66,7 +60,7 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
                 }
             )
         }
-        else console.warn('----- ApiContextProvider.tsx -----','not in chrome env it seems')
+        else console.warn('----- ApiKeyContextProvider.tsx -----','not in chrome env it seems')
     }
 
     // loading the apiKey from the chrome local storage
@@ -75,7 +69,7 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
             chrome.storage.local.get(['apiKey'], (result) => {
                 if (result.apiKey) {
                     setApiKeyState(result.apiKey)
-                    console.log('----- ApiContextProvider.tsx -----','an api key have been restored from chrome storage')
+                    console.log('----- ApiKeyContextProvider.tsx -----','an api key have been restored from chrome storage')
                 }
                 setLoadingApiKey(false)
             })
@@ -85,10 +79,10 @@ const ApiContextProvider: FC<ContextProviderProps> = ({ children }) => {
 
     return (
         // using the context previously created, passing the values that we want to use in this context
-        <ApiContext.Provider value={{partialApiKey,settingUpApiKey, apiKeyState, isValidApiKey, loadingApiKey}}>
+        <ApiKeyContext.Provider value={{partialApiKey,settingUpApiKey, apiKeyState, isValidApiKey, loadingApiKey}}>
             {children}
-        </ApiContext.Provider>
+        </ApiKeyContext.Provider>
     )
 }
 
-export {ApiContext, ApiContextProvider}
+export {ApiKeyContext, ApiKeyContextProvider}

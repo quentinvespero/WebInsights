@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom'
 import App from '../App'
 import { GlobalContext } from '../components/context/ContextProvider'
 import { it, expect, describe } from 'vitest'
-import { ApiContext } from '../components/context/ApiContextProvider'
+import { ApiKeyContext } from '../components/context/ApiKeyContextProvider'
 
 const contentForTesting = {
     en: {
@@ -44,11 +44,11 @@ const renderApp = (language = '', apiKeyState = '', route = '/') => {
 
     return render(
         <GlobalContext.Provider value={globalContextValues}>
-            <ApiContext.Provider value={apiContextValues}>
+            <ApiKeyContext.Provider value={apiContextValues}>
                 <MemoryRouter initialEntries={[route]}>
                     <App />
                 </MemoryRouter>
-            </ApiContext.Provider>
+            </ApiKeyContext.Provider>
         </GlobalContext.Provider>
     )
 }

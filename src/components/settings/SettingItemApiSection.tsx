@@ -1,7 +1,7 @@
-import { useState } from "react"
-import useAppContext from "../context/useAppContext"
-import { ApiContext } from "../context/ApiContextProvider"
+import { useContext, useState } from "react"
 import styled from "styled-components"
+import { ApiKeyContext } from "../context/ApiKeyContextProvider"
+import { AppContentContext } from "../context/AppContentContextProvider"
 
 const Style = styled.div`
     display:flex;
@@ -19,12 +19,6 @@ const Style = styled.div`
             border: .15rem solid grey;
             
         }
-        /* & button{
-            padding: .3rem 1rem;
-            border-radius: 3rem;
-            border: .15rem solid grey;
-            cursor:pointer;
-        } */
     }
     & > .popup{
         font-weight:700;
@@ -43,8 +37,10 @@ const SettingItemApiSection = () => {
     // error message display if api key os too short or such
     const [errorOnApiKey, setErrorOnApiKey] = useState<boolean>(false)
 
-    // consuming the api context
-    const { partialApiKey, settingUpApiKey } = useAppContext(ApiContext)
+    // consuming the api key context
+    const { partialApiKey, settingUpApiKey } = useContext(ApiKeyContext)
+
+    const {appContent} = useContext(AppContentContext)
 
     // handling click
     const handlingApiKeySaving = () => {
@@ -70,12 +66,11 @@ const SettingItemApiSection = () => {
                     onChange={(e) => { setNewApiKey(e.target.value) }}
                     placeholder="Enter API Key"
                 />
-                {/* <ButtonType1 onClick={() => handlingApiKeySaving()}>{'save'}</ButtonType1> */}
                 <button onClick={() => handlingApiKeySaving()}>{'save'}</button>
             </div>
 
-            {isKeySaved && <p className="popup">{'api key saved :)'}</p>}
-            {errorOnApiKey && <p>Have you entered the api key ? 🤔 It seems pretty short....</p>}
+            {isKeySaved && <p className="popup">{appContent.popupMessages.apiKeySaved}</p>}
+            {errorOnApiKey && <p>{appContent.popupMessages.apiKeySeemTooShort}</p>}
             
             <p>current api key: {partialApiKey}</p>
         </Style>

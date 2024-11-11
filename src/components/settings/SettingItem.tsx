@@ -4,6 +4,8 @@ import styled from "styled-components"
 import SettingItemApiSection from "./SettingItemApiSection"
 import { GlobalContext } from "../context/ContextProvider"
 import { PromptContext } from "../context/PromptContextProvider"
+import { ErrorBoundary } from "react-error-boundary"
+import FallbackError from "../fallbackComponents/FallbackError"
 
 interface SettingItemProps {
     settingV2Item:SettingV2ItemInterface
@@ -70,7 +72,9 @@ const SettingItem:FC<SettingItemProps> = ({settingV2Item}) => {
                     ))
                 }
 
-                {settingV2Item.id === 'apiKey' && showInputElement && <SettingItemApiSection/>}
+                <ErrorBoundary fallback={<FallbackError/>}>
+                    {settingV2Item.id === 'apiKey' && showInputElement && <SettingItemApiSection/>}
+                </ErrorBoundary>
 
             </div>
         </Style>

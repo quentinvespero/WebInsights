@@ -106,7 +106,8 @@
         "popupMessages":{
             "apiKeyEmpty":"have you entered your API key in the settings ?",
             "apiKeySaved":"api Key saved :)",
-            "notInChromeEnv":"not in chrome env it seems"
+            "notInChromeEnv":"not in chrome env it seems",
+            "apiKeySeemTooShort":"Have you entered the api key ? 🤔 It seems pretty short to say the least...."
         }
     },
     "fr": {

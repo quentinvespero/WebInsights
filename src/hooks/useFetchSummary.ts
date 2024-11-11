@@ -1,8 +1,8 @@
 import { useContext } from "react"
-import { ApiContext } from "../components/context/ApiContextProvider"
+import { ApiKeyContext } from "../components/context/ApiKeyContextProvider"
 
 export const useFetchSummary = () => {
-    const apiKey = useContext(ApiContext).apiKeyState
+    const apiKey = useContext(ApiKeyContext).apiKeyState
 
     // ensure that the provided api key isn't empty
     if (!apiKey || apiKey.length < 5) {

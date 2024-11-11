@@ -11,7 +11,6 @@ interface AppContentInterface {
         basePrompt:string
         promptsSuggestions:PromptSuggestionInterface[]
     }
-    settings: SettingItemInterface[]
     settingsV2:SettingV2ItemInterface[]
     popupMessages:{
         [key:string]:string
@@ -44,11 +43,6 @@ interface PromptSuggestionInterface {
     description:string
     prompt:string
 }
-interface SettingItemInterface {
-    id:string
-    text:string
-    values:string[] | number[]
-}
 
 // type for the prop of the context itself
 interface AppContentProps{
@@ -75,7 +69,6 @@ const AppContentProvider:FC<ContextProviderProps> = ({children}) => {
     const languageString = languageMap[languageV2] || "en"
 
     // app content, depending on the value of language (if it's set to french or english)
-    // const appContent = content[language as keyof typeof content]
     const appContent = content[languageString as keyof typeof content]
 
     // retrieving a possibly stored setting for language or prompt

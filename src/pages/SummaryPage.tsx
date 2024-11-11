@@ -11,7 +11,7 @@ import { colorsVariables } from "../style/variables"
 const Style = styled.div `
     display:flex;
     flex-direction:column;
-    row-gap:1rem;
+    row-gap:3rem;
 
     .summarySection {
         display:flex;
@@ -31,16 +31,6 @@ const Style = styled.div `
 `
 
 const SummaryPage = () => {
-    
-    // const [selectedPromptObject, setSelectedPromptObject] = useState<PromptSuggestionInterface>(appContent.prompts.promptsSuggestions[promptId])
-
-    // const {promptId} = useAppContext(GlobalContext)
-
-    // const selectedPromptObject = appContent.prompts.promptsSuggestions[promptId]
-    
-    // const selectedPromptObject = useContext(AppContentContext).appContent.prompts.promptsSuggestions[promptId]
-
-    // console.log(selectedPromptObject)
 
     const {appContent} = useContext(AppContentContext)
 
@@ -57,6 +47,7 @@ const SummaryPage = () => {
             </div>
             
             <div className="promptsSuggestions">
+                <h2>Summary tone to use :</h2>
                 {appContent.prompts.promptsSuggestions.map((promptItem) => (
                     <PromptSuggestionItem key={promptItem.id} promptSuggestionItem={promptItem}/>
                 ))}

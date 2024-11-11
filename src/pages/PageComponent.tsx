@@ -1,11 +1,11 @@
 import { FC, useContext } from "react"
 import { PageInterface } from "../interfaces/appContentInterfaces"
 import SummaryPage from "./SummaryPage"
-import { AppContentProps } from "../interfaces/globalProps"
 import styled from "styled-components"
 import SettingsPage from "./SettingsPage"
-import { ApiContext } from "../components/context/ApiContextProvider"
 import { colorsVariables } from "../style/variables"
+import { AppContentContext } from "../components/context/AppContentContextProvider"
+import { ApiKeyContext } from "../components/context/ApiKeyContextProvider"
 
 interface PageComponentProps {
     page: PageInterface
@@ -13,7 +13,7 @@ interface PageComponentProps {
 
 const Style = styled.div`
     width:85%;
-    padding-bottom:10rem;
+    padding-bottom:5rem;
 
     & > .popup{
         padding:.5rem 1rem;
@@ -25,9 +25,11 @@ const Style = styled.div`
     }
 `
 
-const PageComponent:FC<PageComponentProps & AppContentProps> = ({ appContent, page }) => {
+const PageComponent:FC<PageComponentProps> = ({ page }) => {
 
-    const {partialApiKey} = useContext(ApiContext)
+    const {partialApiKey} = useContext(ApiKeyContext)
+
+    const {appContent} = useContext(AppContentContext)
 
     return (
         <Style className='pageComponent'>
@@ -39,7 +41,6 @@ const PageComponent:FC<PageComponentProps & AppContentProps> = ({ appContent, pa
 
             {page.id === 'summary' && <SummaryPage/>}
             
-            {/* {page.id === 'translations'} */}
             {page.id === 'settings' && <SettingsPage/>}
             
         </Style>

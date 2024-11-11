@@ -1,14 +1,10 @@
-import { FC } from "react"
-import { AppContentProps } from "../../interfaces/globalProps"
+import { useContext } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { colorsVariables } from "../../style/variables"
 import styled from "styled-components"
 import { StyledButtonBehaviour } from "../../style/styledComponents"
 import MenuBarItem from "./MenuBarItem"
-
-interface MenuBarProps {
-
-}
+import { AppContentContext } from "../context/AppContentContextProvider"
 
 const Style = styled.div`
     display:flex;
@@ -16,7 +12,6 @@ const Style = styled.div`
     justify-content:center;
     align-items:center;
     column-gap:2rem;
-    /* padding:.5rem 0rem; */
     padding-top:.7rem;
     background:${colorsVariables.color_transparent_dark};
     border-top:.15rem solid ${colorsVariables.color3_dark};
@@ -26,21 +21,20 @@ const Style = styled.div`
     bottom:0;
     z-index:1;
     overflow-x:scroll;
-    /* box-shadow:0 0 2rem 2.5rem ${colorsVariables.color_transparent_dark}; */
     align-items:flex-start;
 `
 
-const MenuBar:FC<MenuBarProps & AppContentProps> = (appContent) => {
+const MenuBar= () => {
 
     const currentLocation = useLocation()
 
-    // console.log(currentLocation.pathname)
+    const {appContent} = useContext(AppContentContext)
 
     return (
         <Style className="menuBar">
 
             {/* mapping pages elements */}
-            {appContent.appContent.pages.map(pageItem => (
+            {appContent.pages.map(pageItem => (
                 <Link to={pageItem.id} key={pageItem.id}>
                     <StyledButtonBehaviour>
                         <MenuBarItem pageItem={pageItem} selected={'/'+pageItem.id === currentLocation.pathname ? true : false}/>

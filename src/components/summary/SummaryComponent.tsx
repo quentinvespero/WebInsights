@@ -3,8 +3,8 @@ import styled from "styled-components"
 import { colorsVariables } from "../../style/variables"
 import { PromptContext } from "../context/PromptContextProvider"
 import { fetchSummary } from "../../hooks/useFetchSummary"
-import { ApiContext } from "../context/ApiContextProvider"
 import ReactMarkdown from 'react-markdown'
+import { ApiKeyContext } from "../context/ApiKeyContextProvider"
 
 const Style = styled.div`
     /* display:flex;
@@ -19,7 +19,7 @@ const Style = styled.div`
 const SummaryComponent = () => {
 
     // ensuring the apikey is valid (by checking its length mostly)
-    const { isValidApiKey, loadingApiKey, apiKeyState } = useContext(ApiContext)
+    const { isValidApiKey, loadingApiKey, apiKeyState } = useContext(ApiKeyContext)
 
     // the summary text to be rendered in the component
     const [summary, setSummary] = useState<string>('')

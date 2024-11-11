@@ -22,16 +22,7 @@ const Style = styled.div`
 
 const App = () => {
 
-    // destructuring objects from the global context
-    // const { language } = useAppContext(GlobalContext)
-    // const { language } = useContext(GlobalContext)
-
-    // app content, depending on the value of language (if it's set to french or english)
-    // const appContent = content[language as keyof typeof content]
-
     const {appContent} = useContext(AppContentContext)
-
-    // const {partialApiKey} = useContext(ApiContext)
 
     return (
         <Style className="app">
@@ -42,7 +33,7 @@ const App = () => {
                     <Route key={page.id} path={page.id} element={
                         <ErrorBoundary fallback={<FallbackError/>}>
                             <Suspense fallback={<FallbackLoading/>}>
-                                <PageComponent appContent={appContent} page={page}/>
+                                <PageComponent page={page}/>
                             </Suspense>
                         </ErrorBoundary>
                     }/>
@@ -52,7 +43,7 @@ const App = () => {
 
             </Routes>
 
-            <MenuBar appContent={appContent} />
+            <MenuBar/>
         </Style>
     )
 }
