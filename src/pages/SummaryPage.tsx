@@ -11,7 +11,7 @@ import { colorsVariables } from "../style/variables"
 const Style = styled.div `
     display:flex;
     flex-direction:column;
-    row-gap:3rem;
+    row-gap:2rem;
 
     .summarySection {
         display:flex;
@@ -47,7 +47,7 @@ const SummaryPage = () => {
             </div>
             
             <div className="promptsSuggestions">
-                <h2>Summary tone to use :</h2>
+                <h3>Summary tone to use :</h3>
                 {appContent.prompts.promptsSuggestions.map((promptItem) => (
                     <PromptSuggestionItem key={promptItem.id} promptSuggestionItem={promptItem}/>
                 ))}
