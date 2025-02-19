@@ -74,6 +74,28 @@
                 ]
             },
             {
+                "id": "translationLanguage",
+                "text": "Translation language",
+                "type":"selector",
+                "values": [
+                    {"id":0, "text":"English","value":"english"},
+                    {"id":1, "text":"French","value":"french"},
+                    {"id":2, "text":"Italian","value":"italian"},
+                    {"id":3, "text":"Spanish","value":"spanish"},
+                    {"id":4, "text":"German","value":"german"},
+                    {"id":5, "text":"Portuguese","value":"portuguese"},
+                    {"id":6, "text":"Dutch","value":"dutch"},
+                    {"id":7, "text":"Polish","value":"polish"},
+                    {"id":9, "text":"Chinese","value":"chinese"},
+                    {"id":10, "text":"Japanese","value":"japanese"},
+                    {"id":11, "text":"Korean","value":"korean"},
+                    {"id":12, "text":"Arabic","value":"arabic"},
+                    {"id":13, "text":"Hindi","value":"hindi"},
+                    {"id":14, "text":"Bengali","value":"bengali"},
+                    {"id":15, "text":"Russian","value":"russian"}
+                ]
+            },
+            {
                 "id": "defaultPrompt",
                 "text": "Default tones",
                 "type":"selector",
